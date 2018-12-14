@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:mo-doc="http://www.courts.mo.gov/exchanges/ExchangeDocument/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.courts.mo.gov/exchanges/ExchangeDocument/1.0" version="1">
+	<xs:element name="MoExchangeNotification" type="mo-doc:MoExchangeNotificationType"/>
+	<xs:element name="MoExchangeException" type="mo-doc:MoExchangeExceptionType"/>
+	<xs:complexType name="MoExChangeHeaderType">
+		<xs:sequence>
+			<xs:element name="HeaderVersion" type="xs:string" minOccurs="0"/>
+			<xs:element name="ServiceName" type="xs:string" minOccurs="0"/>
+			<xs:element name="ServiceVersion" type="xs:string" minOccurs="0"/>
+			<xs:element name="TransactionName" type="xs:string" minOccurs="0"/>
+			<xs:element name="TransactionType" type="xs:string" minOccurs="0"/>
+			<xs:element name="MessageID" type="xs:string" minOccurs="0"/>
+			<xs:element name="MessagePriority" type="xs:string" minOccurs="0"/>
+			<xs:element name="MessageType" type="xs:string" minOccurs="0"/>
+			<xs:element name="RequestOriginator" type="xs:string" minOccurs="0"/>
+			<xs:element name="SourceLogicalName" type="xs:string" minOccurs="0"/>
+			<xs:element name="DestinationLogicalName" type="xs:string" minOccurs="0"/>
+			<xs:element name="NotificationDestinations" type="xs:string" minOccurs="0"/>
+			<xs:element name="SourceORI" type="xs:string" minOccurs="0"/>
+			<xs:element name="DestinationORI" type="xs:string" minOccurs="0"/>
+			<xs:element name="PayloadFormat" type="xs:string" minOccurs="0"/>
+			<xs:element name="FuturePath" type="xs:string" minOccurs="0"/>
+			<xs:element name="DelayedResponsePath" type="xs:string" minOccurs="0"/>
+			<xs:element name="PastPath" type="xs:string" minOccurs="0"/>
+			<xs:element name="LogLevel" type="xs:string" minOccurs="0"/>
+			<xs:element name="ErrorID" type="xs:string" minOccurs="0"/>
+			<xs:element name="UserID" type="xs:string" minOccurs="0"/>
+			<xs:element name="CreationTimestamp" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="ExpiryPeriod" type="xs:string" minOccurs="0"/>
+			<xs:element name="ConfidentialityFlag" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AttachmentType">
+		<xs:sequence>
+			<xs:element name="MIMEType" type="xs:string" minOccurs="0"/>
+			<xs:element name="FileName" type="xs:string" minOccurs="0"/>
+			<xs:element name="Data" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Attachment" type="mo-doc:AttachmentType"/>
+	<xs:complexType name="AttachmentsType">
+		<xs:sequence>
+			<xs:element ref="mo-doc:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Attachments" type="mo-doc:AttachmentsType"/>
+	<xs:element name="MoExchangeHeader" type="mo-doc:MoExChangeHeaderType"/>
+	<xs:complexType name="DeliveryAgentHeaderType">
+		<xs:sequence>
+			<xs:element name="WebServiceDeliveryAgent" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WebServiceType" type="xs:string"/>
+						<xs:element name="WebServiceEndPoint" type="xs:string"/>
+						<xs:element name="WebServiceOperation" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="MQDeliveryAgent" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="QueueManager" type="xs:string"/>
+						<xs:element name="Queue" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EmailDeliveryAgent" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ToEmailID" type="xs:string"/>
+						<xs:element name="FromEmailID" type="xs:string"/>
+						<xs:element name="Subject" type="xs:string"/>
+						<xs:element ref="mo-doc:Attachments" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PagerDeliveryAgent" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PagerNumber" type="xs:string"/>
+						<xs:element name="SenderName" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FTPDeliveryAgent" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FTPAddress" type="xs:string"/>
+						<xs:element name="UserName" type="xs:string" minOccurs="0"/>
+						<xs:element name="Password" type="xs:string" minOccurs="0"/>
+						<xs:element ref="mo-doc:Attachments" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DatabaseDeliveryAgent" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DatabaseConnectURL" type="xs:string"/>
+						<xs:element name="DatabasePersistanceObject" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>This object could be a table or view</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DatabaseColumnMapping" minOccurs="0" maxOccurs="1">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Map" minOccurs="6" maxOccurs="6">
+										<xs:annotation>
+											<xs:documentation>There should be a map for each element:  MessageID, Source, Destination, Priority, DeliveryAgent, NotificationMessage</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Column" type="xs:string"/>
+												<xs:element name="Element" type="xs:string"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PrinterDeliveryAgent" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PrinterServer" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="DeliveryAgentHeader" type="mo-doc:DeliveryAgentHeaderType"/>
+	<xs:complexType name="ExceptionDetailType">
+		<xs:sequence>
+			<xs:element name="ExceptionComponentID" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExceptionSeverity" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExceptionCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExceptionMessageText" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MoExchangeBusinessExceptionType">
+		<xs:sequence>
+			<xs:element name="ServiceName" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExceptionTimestamp" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="OriginalPayload" type="xs:anyType" minOccurs="0"/>
+			<xs:element name="ExceptionDetail" type="mo-doc:ExceptionDetailType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ExceptionDetail" type="mo-doc:ExceptionDetailType"/>
+	<xs:element name="MoExchangeBusinessException" type="mo-doc:MoExchangeBusinessExceptionType"/>
+	<xs:element name="MoExchangeMessage">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="mo-doc:MoExchangeRequest"/>
+				<xs:element ref="mo-doc:MoExchangeResponse"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="MoExchangeExceptionType">
+		<xs:sequence>
+			<xs:element name="MoExchangeBusinessException" type="mo-doc:MoExchangeBusinessExceptionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MoExchangeNotificationType">
+		<xs:sequence>
+			<xs:element name="MessageID" type="xs:string" minOccurs="0"/>
+			<xs:element name="Source" type="xs:string" minOccurs="0"/>
+			<xs:element name="Destination" type="xs:string" minOccurs="0"/>
+			<xs:element name="Priority" type="xs:string" minOccurs="0"/>
+			<xs:element name="DeliveryAgent" type="xs:string" minOccurs="0"/>
+			<xs:element name="NotificationMessage" type="xs:string" minOccurs="0"/>
+			<xs:element ref="mo-doc:DeliveryAgentHeader" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MoExchangeRequestPayloadType">
+		<xs:sequence>
+			<xs:element ref="mo-doc:MoExchangeHeader" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="mo-doc:MoExchangeStructuredDataPayload" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="mo-doc:MoExchangeNotification" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MoExchangeRequestPayload" type="mo-doc:MoExchangeRequestPayloadType"/>
+	<xs:complexType name="MoExchangeResponsePayloadType">
+		<xs:sequence>
+			<xs:element ref="mo-doc:MoExchangeHeader" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="mo-doc:MoExchangeStructuredDataPayload" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="mo-doc:MoExchangeNotification" minOccurs="0"/>
+			<xs:element ref="mo-doc:MoExchangeException" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MoExchangeRequestType">
+		<xs:sequence>
+			<xs:element ref="mo-doc:MoExchangeRequest" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="mo-doc:MoExchangeNotification" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MoExchangeRequest" type="mo-doc:MoExchangeRequestPayloadType"/>
+	<xs:complexType name="MoExchangeStructuredDataPayloadType">
+		<xs:sequence>
+			<xs:element name="MoExchangeStructuredData" type="xs:string" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MoExchangeStructuredDataPayload" type="mo-doc:MoExchangeStructuredDataPayloadType"/>
+	<xs:element name="MoExchangeResponse" type="mo-doc:MoExchangeResponsePayloadType"/>
+</xs:schema>

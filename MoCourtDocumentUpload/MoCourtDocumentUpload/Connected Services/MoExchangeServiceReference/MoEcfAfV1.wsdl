@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mo-ecf-af="http://www.courts.mo.gov/exchanges/moecfaf/1.0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mo-doc="http://www.courts.mo.gov/exchanges/ExchangeDocument/1.0" xmlns="http://schemas.xmlsoap.org/wsdl/" name="MoEcfAfV1" targetNamespace="http://www.courts.mo.gov/exchanges/moecfaf/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <documentation>Missouri Electronic Case Filing - Automated Filing</documentation>
+  <wsp:Policy wsu:Id="UsernameToken" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient" />
+          </wsp:Policy>
+        </sp:SupportingTokens>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.courts.mo.gov/exchanges/ExchangeDocument/1.0" version="1">
+      <xs:element name="MoExchangeNotification" type="mo-doc:MoExchangeNotificationType" />
+      <xs:element name="MoExchangeException" type="mo-doc:MoExchangeExceptionType" />
+      <xs:complexType name="MoExchangeHeaderType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="HeaderVersion" type="xs:string" />
+          <xs:element minOccurs="0" name="ServiceName" type="xs:string" />
+          <xs:element minOccurs="0" name="ServiceVersion" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionName" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionType" type="xs:string" />
+          <xs:element minOccurs="0" name="MessageID" type="xs:string" />
+          <xs:element minOccurs="0" name="MessagePriority" type="xs:string" />
+          <xs:element minOccurs="0" name="MessageType" type="xs:string" />
+          <xs:element minOccurs="0" name="RequestOriginator" type="xs:string" />
+          <xs:element minOccurs="0" name="SourceLogicalName" type="xs:string" />
+          <xs:element minOccurs="0" name="DestinationLogicalName" type="xs:string" />
+          <xs:element minOccurs="0" name="NotificationDestinations" type="xs:string" />
+          <xs:element minOccurs="0" name="SourceORI" type="xs:string" />
+          <xs:element minOccurs="0" name="DestinationORI" type="xs:string" />
+          <xs:element minOccurs="0" name="PayloadFormat" type="xs:string" />
+          <xs:element minOccurs="0" name="FuturePath" type="xs:string" />
+          <xs:element minOccurs="0" name="DelayedResponsePath" type="xs:string" />
+          <xs:element minOccurs="0" name="PastPath" type="xs:string" />
+          <xs:element minOccurs="0" name="LogLevel" type="xs:string" />
+          <xs:element minOccurs="0" name="ErrorID" type="xs:string" />
+          <xs:element minOccurs="0" name="UserID" type="xs:string" />
+          <xs:element minOccurs="0" name="CreationTimestamp" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ExpiryPeriod" type="xs:string" />
+          <xs:element minOccurs="0" name="ConfidentialityFlag" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AttachmentType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MIMEType" type="xs:string" />
+          <xs:element minOccurs="0" name="FileName" type="xs:string" />
+          <xs:element minOccurs="0" name="Data" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Attachment" type="mo-doc:AttachmentType" />
+      <xs:complexType name="AttachmentsType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" ref="mo-doc:Attachment" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Attachments" type="mo-doc:AttachmentsType" />
+      <xs:element name="MoExchangeHeader" type="mo-doc:MoExchangeHeaderType" />
+      <xs:complexType name="DeliveryAgentHeaderType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="WebServiceDeliveryAgent">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="WebServiceType" type="xs:string" />
+                <xs:element name="WebServiceEndPoint" type="xs:string" />
+                <xs:element name="WebServiceOperation" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="MQDeliveryAgent">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="QueueManager" type="xs:string" />
+                <xs:element name="Queue" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="EmailDeliveryAgent">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ToEmailID" type="xs:string" />
+                <xs:element name="FromEmailID" type="xs:string" />
+                <xs:element name="Subject" type="xs:string" />
+                <xs:element minOccurs="0" ref="mo-doc:Attachments" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="PagerDeliveryAgent">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="PagerNumber" type="xs:string" />
+                <xs:element name="SenderName" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="FTPDeliveryAgent">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="FTPAddress" type="xs:string" />
+                <xs:element minOccurs="0" name="UserName" type="xs:string" />
+                <xs:element minOccurs="0" name="Password" type="xs:string" />
+                <xs:element minOccurs="0" ref="mo-doc:Attachments" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="DatabaseDeliveryAgent">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="DatabaseConnectURL" type="xs:string" />
+                <xs:element name="DatabasePersistanceObject" type="xs:string">
+                  <xs:annotation>
+                    <xs:documentation>This object could be a table or view</xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="DatabaseColumnMapping">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element minOccurs="6" maxOccurs="6" name="Map">
+                        <xs:annotation>
+                          <xs:documentation>There should be a map for each element:  MessageID, Source, Destination, Priority, DeliveryAgent, NotificationMessage</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="Column" type="xs:string" />
+                            <xs:element name="Element" type="xs:string" />
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="PrinterDeliveryAgent">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="PrinterServer" type="xs:string" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DeliveryAgentHeader" type="mo-doc:DeliveryAgentHeaderType" />
+      <xs:complexType name="ExceptionDetailType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ExceptionComponentID" type="xs:string" />
+          <xs:element minOccurs="0" name="ExceptionSeverity" type="xs:string" />
+          <xs:element minOccurs="0" name="ExceptionCode" type="xs:string" />
+          <xs:element minOccurs="0" name="ExceptionMessageText" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="MoExchangeBusinessExceptionType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ServiceName" type="xs:string" />
+          <xs:element minOccurs="0" name="ExceptionTimestamp" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="OriginalPayload" type="xs:anyType" />
+          <xs:element minOccurs="1" maxOccurs="unbounded" name="ExceptionDetail" type="mo-doc:ExceptionDetailType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ExceptionDetail" type="mo-doc:ExceptionDetailType" />
+      <xs:element name="MoExchangeBusinessException" type="mo-doc:MoExchangeBusinessExceptionType" />
+      <xs:element name="MoExchangeMessage">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element ref="mo-doc:MoExchangeRequest" />
+            <xs:element ref="mo-doc:MoExchangeResponse" />
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="MoExchangeExceptionType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MoExchangeBusinessException" type="mo-doc:MoExchangeBusinessExceptionType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="MoExchangeNotificationType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MessageID" type="xs:string" />
+          <xs:element minOccurs="0" name="Source" type="xs:string" />
+          <xs:element minOccurs="0" name="Destination" type="xs:string" />
+          <xs:element minOccurs="0" name="Priority" type="xs:string" />
+          <xs:element minOccurs="0" name="DeliveryAgent" type="xs:string" />
+          <xs:element minOccurs="0" name="NotificationMessage" type="xs:string" />
+          <xs:element minOccurs="0" ref="mo-doc:DeliveryAgentHeader" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="MoExchangeRequestPayloadType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" ref="mo-doc:MoExchangeHeader" />
+          <xs:element minOccurs="1" maxOccurs="1" ref="mo-doc:MoExchangeStructuredDataPayload" />
+          <xs:element minOccurs="0" ref="mo-doc:MoExchangeNotification" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MoExchangeRequestPayload" type="mo-doc:MoExchangeRequestPayloadType" />
+      <xs:complexType name="MoExchangeResponsePayloadType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" ref="mo-doc:MoExchangeHeader" />
+          <xs:element minOccurs="1" maxOccurs="1" ref="mo-doc:MoExchangeStructuredDataPayload" />
+          <xs:element minOccurs="0" ref="mo-doc:MoExchangeNotification" />
+          <xs:element minOccurs="0" ref="mo-doc:MoExchangeException" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="MoExchangeRequestType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" ref="mo-doc:MoExchangeRequest" />
+          <xs:element minOccurs="0" ref="mo-doc:MoExchangeNotification" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MoExchangeRequest" type="mo-doc:MoExchangeRequestPayloadType" />
+      <xs:complexType name="MoExchangeStructuredDataPayloadType">
+        <xs:sequence>
+          <xs:element maxOccurs="1" name="MoExchangeStructuredData" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MoExchangeStructuredDataPayload" type="mo-doc:MoExchangeStructuredDataPayloadType" />
+      <xs:element name="MoExchangeResponse" type="mo-doc:MoExchangeResponsePayloadType" />
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.courts.mo.gov/exchanges/moecfaf/1.0">
+      <xs:import namespace="http://www.courts.mo.gov/exchanges/ExchangeDocument/1.0" />
+      <xs:element name="fileNewCase">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" ref="mo-doc:MoExchangeRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fileNewCaseResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" ref="mo-doc:MoExchangeResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fileOnExistingCase">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" ref="mo-doc:MoExchangeRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fileOnExistingCaseResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" ref="mo-doc:MoExchangeResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:MoEcfAf" />
+  </wsdl:types>
+  <wsdl:message name="fileNewCaseRequest">
+    <wsdl:part name="parameters" element="mo-ecf-af:fileNewCase" />
+  </wsdl:message>
+  <wsdl:message name="fileNewCaseResponse">
+    <wsdl:part name="parameters" element="mo-ecf-af:fileNewCaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="fileOnExistingCaseRequest">
+    <wsdl:part name="parameters" element="mo-ecf-af:fileOnExistingCase" />
+  </wsdl:message>
+  <wsdl:message name="fileOnExistingCaseResponse">
+    <wsdl:part name="parameters" element="mo-ecf-af:fileOnExistingCaseResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FilingServicePortType">
+    <wsdl:operation name="fileNewCase">
+      <wsdl:input wsaw:Action="urn:fileNewCase" message="mo-ecf-af:fileNewCaseRequest" />
+      <wsdl:output wsaw:Action="urn:fileNewCaseResponse" message="mo-ecf-af:fileNewCaseResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="fileOnExistingCase">
+      <wsdl:input wsaw:Action="urn:fileOnExistingCase" message="mo-ecf-af:fileOnExistingCaseRequest" />
+      <wsdl:output wsaw:Action="urn:fileOnExistingCaseResponse" message="mo-ecf-af:fileOnExistingCaseResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FilingServiceSoap11Binding" type="mo-ecf-af:FilingServicePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="fileNewCase">
+      <soap:operation soapAction="urn:fileNewCase" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#UsernameToken" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fileOnExistingCase">
+      <soap:operation soapAction="urn:fileOnExistingCase" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#UsernameToken" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MoEcfAfV1">
+    <wsdl:port name="FilingServiceHttpSoap11Endpoint" binding="mo-ecf-af:FilingServiceSoap11Binding">
+      <soap:address location="https://www.courts.mo.gov/ecf-af-web/services/MoEcfAfV1" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

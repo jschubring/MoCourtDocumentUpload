@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2012 rel. 2 (x64) (http://www.altova.com) by OSCA30620 (MO OSCA) -->
+<xsd:schema xmlns:mo-ecf-ext="http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:ns1="http://niem.gov/niem/appinfo/2.1" xmlns:mo-ecf="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0" targetNamespace="http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1">
+	<xsd:annotation>
+		<xsd:documentation>Missouri Electronic Case Filing Extensions Schema</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="niem/appinfo/2.1/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="niem/domains/jxdm/4.1/jxdm.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0" schemaLocation="MoEcfExchange.xsd"/>
+	<xsd:complexType name="EntityCaseAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between an entity and a case.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="AssociationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:CaseReference" minOccurs="1"/>
+					<xsd:element ref="nc:EntityRepresentation" minOccurs="1"/>
+					<xsd:element ref="mo-ecf-ext:AssociationDescriptionText" minOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="EntityCaseAssociation" type="mo-ecf-ext:EntityCaseAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between an entity and a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AssociationDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Description of the the association.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PrimaryDocument" type="mo-ecf-ext:DocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A paper or electronic document which can contain attachment/secondary documents.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="DocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A paper or electronic document which can contain attachment/secondary documents.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="DocumentType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="mo-ecf-ext:DocumentCategoryText" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="mo-ecf-ext:DocumentRespondToSequenceText" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="DocumentCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The type of document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentRespondToSequenceText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The sequence of the document being responded to.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="EntityDocumentAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between an entity and a document.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="AssociationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:DocumentReference" minOccurs="1"/>
+					<xsd:element ref="nc:EntityRepresentation" minOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="EntityDocumentAssociation" type="mo-ecf-ext:EntityDocumentAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an association between an entity and a document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Fee" type="mo-ecf-ext:ObligationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for something that is owed to someone.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ObligationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for something that is owed to someone.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ObligationType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ObligationType">
+				<xsd:sequence>
+					<xsd:element ref="mo-ecf:PaymentMeans" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="mo-ecf-ext:ObligationExemption" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ObligationExemption" type="mo-ecf-ext:ObligationExemptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for something that is owed to someone.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ObligationExemptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for something that is owed to someone.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ObligationExemptionType"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ObligationExemptionType">
+				<xsd:sequence>
+					<xsd:element ref="mo-ecf:ObligationExemptionCode" minOccurs="1" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

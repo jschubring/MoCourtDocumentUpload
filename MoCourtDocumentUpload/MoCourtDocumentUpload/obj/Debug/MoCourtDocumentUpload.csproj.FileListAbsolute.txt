@@ -1,0 +1,7 @@
+C:\tfs\ss\PDT Projects\Justin\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.exe.config
+C:\tfs\ss\PDT Projects\Justin\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.exe
+C:\tfs\ss\PDT Projects\Justin\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.pdb
+C:\tfs\ss\PDT Projects\Justin\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csproj.CoreCompileInputs.cache
+C:\tfs\ss\PDT Projects\Justin\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.exe
+C:\tfs\ss\PDT Projects\Justin\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.pdb
+C:\tfs\ss\PDT Projects\Justin\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csprojResolveAssemblyReference.cache

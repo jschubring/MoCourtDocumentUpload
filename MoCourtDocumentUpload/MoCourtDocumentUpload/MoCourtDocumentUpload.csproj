@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Models\BuildDocument.cs" />
     <Compile Include="Models\MoEcfExchange.cs" />
     <Compile Include="Models\MoExchangeDocument.cs" />
     <Compile Include="Program.cs" />

@@ -8,33 +8,69 @@ namespace MoCourtDocumentUpload.Models
 {
     public class BuildDocument
     {
-        MoEcfExchangeType mo = new MoEcfExchangeType()
+        public MoEcfExchangeType BuildMoEcfExchangeType()
         {
-            Person = BuildPersons(),
-            Organization = BuildOrganizations(),
-            //not done
-            ContactInformation = BuildContactInformations(),
-            //not done
-            PersonContactInformationAssociation = BuildContactInformationAssociations(),
-            Case = new CaseType1()
+            MoEcfExchangeType mo = new MoEcfExchangeType()
             {
-                CaseAugmentation = new CaseAugmentationType()
+                Person = BuildPersons(),
+                Organization = BuildOrganizations(),
+                //not done
+                ContactInformation = BuildContactInformations(),
+                Case = new CaseType1()
                 {
-                    CaseCourt = new CourtType()
+                    CaseAugmentation = new CaseAugmentationType()
                     {
-                        CourtDivisionText = BuildTextType("AD"),
-                        OrganizationName = BuildTextType("OrgName"),
-                        OrganizationOtherIdentification = BuildIdentificationTypes()
+                        CaseCourt = new CourtType()
+                        {
+                            CourtDivisionText = BuildTextType("AD"),
+                            OrganizationName = BuildTextType("OrgName"),
+                            OrganizationOtherIdentification = BuildIdentificationTypes()
+                        },
+                        CaseOtherIdentification = BuildIdentificationType()
                     },
-                    CaseOtherIdentification = BuildIdentificationType()
+                    CaseCategoryText = BuildTextType("CP"),
+                    CaseTitleText = BuildTextType("Ryan V Justin")
                 },
-                CaseCategoryText = BuildTextType("CP"),
-                CaseTitleText = BuildTextType("Ryan V Justin")
-            },
-            CommentText = BuildTextType("This is a comment"),
-            
-
-        };
+                CommentText = BuildTextType("This is a comment"),
+                Fee = new ObligationType1()
+                {
+                    // TODO finish payment
+                    Item1 = { },
+                    Item = new AmountType()
+                    {
+                        currencyCode = "",
+                        currencyText = "",
+                        Value = decimal.Parse("22.00")
+                    },
+                    ObligationExemption = new List<ObligationExemptionType1>()
+                    {
+                        new ObligationExemptionType1()
+                        {
+                            ObligationExemptionCode = new ObligationExemptionCodeType()
+                            {
+                                Value = ObligationExemptionCodeSimpleType.IFP
+                            }
+                        }
+                    }.ToArray()
+                },
+                Identification = new List<IdentificationType>(){
+                    new IdentificationType()
+                    {
+                        IdentificationID = BuildTextType("ecfUser001"),
+                        //IdentificationCategory = IdentificationCategoryCodeSimpleType.USERNAME
+                    }
+                }.ToArray(),
+                PrimaryDocument = new List<DocumentType1>()
+                {
+                
+                }.ToArray(),
+                PersonContactInformationAssociation = BuildContactInformationAssociations(),
+                EntityCaseAssociation = null,
+                EntityDocumentAssociation = null,
+                OrganizationContactInformationAssociation = null
+            };
+            return mo;
+        }
 
         private static TextType BuildTextType(string value)
         {
@@ -149,10 +185,10 @@ namespace MoCourtDocumentUpload.Models
                 },
                 PersonSSNIdentification = new IdentificationType()
                 {
-                    IdentificationCategory = new IdentificationCategoryCodeType()
-                    {
-                        Value = IdentificationCategoryCodeSimpleType.SSN
-                    },
+                    //IdentificationCategory = new IdentificationCategoryCodeType()
+                    //{
+                    //    Value = IdentificationCategoryCodeSimpleType.SSN
+                    //},
                     IdentificationID = new @string()
                     {
                         Value = "99-999-9999"
@@ -170,10 +206,10 @@ namespace MoCourtDocumentUpload.Models
         {
             return new IdentificationType()
             {
-                IdentificationCategory = new IdentificationCategoryCodeType()
-                {
-                    Value = IdentificationCategoryCodeSimpleType.USERNAME
-                },
+                //IdentificationCategory = new IdentificationCategoryCodeType()
+                //{
+                //    Value = IdentificationCategoryCodeSimpleType.USERNAME
+                //},
                 IdentificationID = new @string()
                 {
                     Value = "USERNAME"

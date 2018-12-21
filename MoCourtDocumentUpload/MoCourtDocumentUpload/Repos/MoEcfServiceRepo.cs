@@ -12,7 +12,7 @@ namespace MoCourtDocumentUpload.Repos
     {
         public void Something()
         {
-            var document = "we need MoEcfExchangeDocument";
+            var document = "we need MoEcfExchangeDocument2";
             string theData = "the data";
 
             var x = new MoExchangeServiceReference.FilingServicePortTypeClient();

@@ -1,13 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MoCourtDocumentUpload.Models
 {
     public class BuildDocument
     {
+        public string ReturnDocumentXML()
+        {
+            var document = new BuildDocument().BuildMoEcfExchangeType();
+
+
+
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("mo-ecf", "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0");
+            ns.Add("nc", "http://niem.gov/niem/niem-core/2.0");
+            ns.Add("s", "http://niem.gov/niem/structures/2.0");
+            ns.Add("j", "http://niem.gov/niem/domains/jxdm/4.1");
+            ns.Add("mo-ecf-ext", "http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0");
+
+            XmlSerializer xser = new XmlSerializer(typeof(MoEcfExchangeType));
+
+            var xml = "";
+
+            using (var sww = new StringWriter())
+            {
+                using (XmlWriter writer = XmlWriter.Create(sww))
+                {
+                    xser.Serialize(writer, document, ns);
+                    xml = sww.ToString(); // Your XML
+                }
+            }
+            return xml;
+        }
+
+
         public MoEcfExchangeType BuildMoEcfExchangeType()
         {
             MoEcfExchangeType mo = new MoEcfExchangeType()
@@ -57,7 +89,7 @@ namespace MoCourtDocumentUpload.Models
                     new IdentificationType()
                     {
                         IdentificationID = BuildTextType("ecfUser001"),
-                        //IdentificationCategory = IdentificationCategoryCodeSimpleType.USERNAME
+                        IdentificationCategory = IdentificationCategoryCodeSimpleType.USERNAME,
                     }
                 }.ToArray(),
                 PrimaryDocument = new List<DocumentType1>()

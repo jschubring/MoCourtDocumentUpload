@@ -1933,13 +1933,13 @@ public partial class OrganizationType : ComplexObjectType {
 [System.Xml.Serialization.XmlRootAttribute("Identification", Namespace="http://niem.gov/niem/niem-core/2.0", IsNullable=true)]
 public partial class IdentificationType : ComplexObjectType {
     
-    private @string identificationIDField;
+    private TextType identificationIDField;
     
-    private object identificationCategoryField;
+    private IdentificationCategoryCodeSimpleType identificationCategoryField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string IdentificationID {
+    public TextType IdentificationID {
         get {
             return this.identificationIDField;
         }
@@ -1949,7 +1949,7 @@ public partial class IdentificationType : ComplexObjectType {
     }
     
     /// <remarks/>
-    public object IdentificationCategory {
+    public IdentificationCategoryCodeSimpleType IdentificationCategory {
         get {
             return this.identificationCategoryField;
         }
@@ -2328,14 +2328,13 @@ public partial class ObligationType : ComplexObjectType {
 [System.Xml.Serialization.XmlRootAttribute("Fee", Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0", IsNullable=false)]
 public partial class ObligationType1 : ObligationType {
     
-    private object item1Field;
+    private PaymentElectronicBankDraftType item1Field;
     
     private ObligationExemptionType1[] obligationExemptionField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("PaymentCourtDebitAccount", typeof(@string), Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable=true)]
     [System.Xml.Serialization.XmlElementAttribute("PaymentElectronicBankDraft", typeof(PaymentElectronicBankDraftType), Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable=true)]
-    public object Item1 {
+    public PaymentElectronicBankDraftType Item1 {
         get {
             return this.item1Field;
         }
@@ -2748,6 +2747,8 @@ public partial class OrganizationContactInformationAssociationType : Association
     private ReferenceType contactInformationReferenceField;
     
     /// <remarks/>
+    /// 
+      [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
     public ReferenceType OrganizationReference {
         get {
             return this.organizationReferenceField;
@@ -2756,8 +2757,10 @@ public partial class OrganizationContactInformationAssociationType : Association
             this.organizationReferenceField = value;
         }
     }
-    
+
     /// <remarks/>
+    /// 
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://niem.gov/niem/niem-core/2.0")]
     public ReferenceType ContactInformationReference {
         get {
             return this.contactInformationReferenceField;
@@ -2779,7 +2782,7 @@ public partial class EntityDocumentAssociationType : AssociationType {
     
     private ReferenceType documentReferenceField;
     
-    private object entityRepresentationField;
+    private ReferenceType entityRepresentationField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
@@ -2794,7 +2797,7 @@ public partial class EntityDocumentAssociationType : AssociationType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
-    public object EntityRepresentation {
+    public ReferenceType EntityRepresentation {
         get {
             return this.entityRepresentationField;
         }
@@ -2815,7 +2818,7 @@ public partial class EntityCaseAssociationType : AssociationType {
     
     private ReferenceType caseReferenceField;
     
-    private object entityRepresentationField;
+    private ReferenceType entityRepresentationField;
     
     private TextType associationDescriptionTextField;
     
@@ -2832,7 +2835,7 @@ public partial class EntityCaseAssociationType : AssociationType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
-    public object EntityRepresentation {
+    public ReferenceType EntityRepresentation {
         get {
             return this.entityRepresentationField;
         }
@@ -3068,18 +3071,45 @@ public partial class AddressType : ComplexObjectType {
 [System.Xml.Serialization.XmlRootAttribute("ContactInformation", Namespace="http://niem.gov/niem/niem-core/2.0", IsNullable=true)]
 public partial class ContactInformationType : ComplexObjectType {
     
-    private object[] itemsField;
-    
+    private AddressType contactMailingAddress;
+    private string contactEmailIDField;
+    private TelephoneNumberType contactTelephoneNumber;
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("ContactEmailID", typeof(@string), IsNullable=true)]
     [System.Xml.Serialization.XmlElementAttribute("ContactMailingAddress", typeof(AddressType), IsNullable=true)]
-    [System.Xml.Serialization.XmlElementAttribute("ContactTelephoneNumber", typeof(TelephoneNumberType), IsNullable=true)]
-    public object[] Items {
+    public AddressType ContactMailingAddress
+    {
         get {
-            return this.itemsField;
+            return this.contactMailingAddress;
         }
         set {
-            this.itemsField = value;
+            this.contactMailingAddress = value;
+        }
+    }
+
+    [System.Xml.Serialization.XmlElementAttribute("ContactTelephoneNumber", typeof(TelephoneNumberType), IsNullable = true)]
+    public TelephoneNumberType ContactTelephoneNumber
+    {
+        get
+        {
+            return this.contactTelephoneNumber;
+        }
+        set
+        {
+            this.contactTelephoneNumber = value;
+        }
+    }
+
+    [System.Xml.Serialization.XmlElementAttribute("ContactEmailID", typeof(@string), IsNullable = true)]
+    public string ContactEmailID
+    {
+        get
+        {
+            return this.contactEmailIDField;
+        }
+        set
+        {
+            this.contactEmailIDField = value;
         }
     }
 }

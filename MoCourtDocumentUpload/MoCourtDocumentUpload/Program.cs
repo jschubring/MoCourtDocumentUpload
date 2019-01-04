@@ -22,7 +22,8 @@ namespace MoCourtDocumentUpload
             // build the ecf exchange document
             //MoEcfExchangeType mo = null;
             //var x = new MoEcfExchangeType().
-            
+
+            var result = new BuildDocument().ReturnDocumentXML();
             // validate the document before we send it
             Console.ReadLine();
             // send document

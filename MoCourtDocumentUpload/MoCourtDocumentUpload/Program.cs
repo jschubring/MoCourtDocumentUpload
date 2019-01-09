@@ -14,10 +14,10 @@ namespace MoCourtDocumentUpload
 {
     class Program
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
+            //log4net.Config.XmlConfigurator.Configure();
 
             // build the ecf exchange document
             //MoEcfExchangeType mo = null;
@@ -38,7 +38,7 @@ namespace MoCourtDocumentUpload
 
         private static void SendSuccessMessage()
         {
-            log.Info("Email Sent");
+            //log.Info("Email Sent");
         }
     }   
 }

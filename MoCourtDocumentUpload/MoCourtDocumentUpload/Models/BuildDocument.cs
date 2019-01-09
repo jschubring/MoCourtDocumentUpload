@@ -93,10 +93,10 @@ namespace MoCourtDocumentUpload.Models
                 PersonContactInformationAssociation = BuildContactInformationAssociations(),
                 EntityCaseAssociation = new List<EntityCaseAssociationType>()
                 {
-                    BuildEntityCaseAssociationType("c", "o1", "PET"),
-                     BuildEntityCaseAssociationType("c", "p1", "PET"),
-                      BuildEntityCaseAssociationType("c", "o2", "RES"),
-                       BuildEntityCaseAssociationType("c", "p2", "RES")
+                    BuildEntityCaseAssociationType("c", "o1", null, "PET"),
+                     BuildEntityCaseAssociationType("c",null, "p1", "PET"),
+                      BuildEntityCaseAssociationType("c", "o2",null, "RES"),
+                       BuildEntityCaseAssociationType("c",null, "p2", "RES")
                 }.ToArray(),
                 EntityDocumentAssociation = BuildEntityDocumentAssocation(),
                 OrganizationContactInformationAssociation = new List<OrganizationContactInformationAssociationType>()
@@ -138,20 +138,29 @@ namespace MoCourtDocumentUpload.Models
         private static EntityDocumentAssociationType[] BuildEntityDocumentAssocation()
         {
             return new List<EntityDocumentAssociationType>(){
-                BuildEntityAssociation("pd1", "p1"),
-                BuildEntityAssociation("pd1", "o1"),
-                BuildEntityAssociation("pd2", "p1"),
-                 BuildEntityAssociation("pd2", "o1")
+                BuildEntityAssociation("pd1", "p1", null),
+                BuildEntityAssociation("pd1", null, "o1"),
+                BuildEntityAssociation("pd2", "p1", null),
+                 BuildEntityAssociation("pd2", null,"o1")
                 }.ToArray();
         }
 
-        private static EntityDocumentAssociationType BuildEntityAssociation(string documentRef, string EntityRef)
+        private static EntityDocumentAssociationType BuildEntityAssociation(string documentRef, string personRef, string orgRef)
         {
-            return new EntityDocumentAssociationType()
+            var docAssociation =  new EntityDocumentAssociationType()
             {
-                DocumentReference = BuildReference(documentRef),
-                EntityRepresentation = BuildReference(EntityRef)
+                DocumentReference = BuildReference(documentRef)
             };
+            if (!string.IsNullOrEmpty(orgRef))
+            {
+                docAssociation.EntityOrganizationReference = BuildReference(orgRef);
+            }
+            if (!string.IsNullOrEmpty(personRef))
+            {
+                docAssociation.EntityPersonReference = BuildReference(personRef);
+            }
+            return docAssociation;
+
         }
         private static OrganizationContactInformationAssociationType BuildOrganizationContactInformationAssociation(string organizationRef, string contactRef)
         {
@@ -161,14 +170,22 @@ namespace MoCourtDocumentUpload.Models
                 ContactInformationReference = BuildReference(contactRef)
             };
         }
-        private static EntityCaseAssociationType BuildEntityCaseAssociationType(string caseRef, string entityRef, string associationDescription)
+        private static EntityCaseAssociationType BuildEntityCaseAssociationType(string caseRef, string orgRef, string personRef, string associationDescription)
         {
-            return new EntityCaseAssociationType()
+             var caseAssociation = new EntityCaseAssociationType()
             {
-                CaseReference = BuildReference(caseRef),
-                EntityRepresentation = BuildReference(entityRef),
+                CaseReference = BuildReference(caseRef),        
                 AssociationDescriptionText = BuildTextType(associationDescription)
             };
+            if (!string.IsNullOrEmpty(orgRef))
+            {
+                caseAssociation.EntityOrganizationReference = BuildReference(orgRef);
+            }
+            if (!string.IsNullOrEmpty(personRef))
+            {
+                caseAssociation.EntityPersonReference = BuildReference(personRef);
+            }
+            return caseAssociation;
         }
         private static ReferenceType BuildReference(string reference)
         {
@@ -225,7 +242,7 @@ namespace MoCourtDocumentUpload.Models
                         //OrganizationName = BuildTextType("OrgName"),
                         //OrganizationOtherIdentification = BuildIdentificationTypes("")
                     },
-                    CaseOtherIdentification = BuildIdentificationType()
+                    //CaseOtherIdentification = BuildIdentificationType()
                 },
                 CaseCategoryText = BuildTextType("CP"),
                 CaseTitleText = BuildTextType("JOHN C FLINN ET AL V WILLIAM P CORGAN ET AL"),
@@ -264,60 +281,62 @@ namespace MoCourtDocumentUpload.Models
                             "123 HOME RD" , "APT 2B"
                         },
                         City = "JEFFERSON CITY",
-                        Country = "US",
-                        State = "MO",
+                        Country =CountryAlpha2CodeSimpleType.US,
+                       UsState = USStateCodeSimpleType.MO,
                         ZipCode = "65109",
                         AreaCode = "573",
                         ExchangeID = "522",
                         LineID = "8867",
+                        ID = "1"
                     }),
-                      BuildContactInformation(new Contact(){
-                        Email = "",
+                      BuildContactInformation(new Contact(){                   
                         StreetAdress = new List<string>(){
                             "44 DUGGAN AVE"
                         },
                         City = "TORONTO",
-                        Country = "CA",
+                        Country = CountryAlpha2CodeSimpleType.CA,
                         State = "ONTARIO",
                         ZipCode = "M4V 1Y2",
                         AreaCode = "573",
                         ExchangeID = "522",
                         LineID = "1234",
+                          ID = "2"
                     }),
                        BuildContactInformation(new Contact(){
-                        Email = "",
                         StreetAdress = new List<string>(){
                             "123 BUSINESS ST" 
                         },
                         City = "JEFFERSON CITY",
-                        Country = "MO",
-                        State = "US",
+                        Country = CountryAlpha2CodeSimpleType.US,
+                        UsState = USStateCodeSimpleType.MO,
                         ZipCode = "65101",
                         AreaCode = "573",
                         ExchangeID = "522",
                         LineID = "1235",
+                          ID = "3"
                     }),
                        BuildContactInformation(new Contact(){
-                        Email = "",
+                      
                         StreetAdress = new List<string>(){
                             "111 MAIN ST"
                         },
                         City = "COLUMBIA",
-                        Country = "MO",
-                        State = "US",
+                        Country = CountryAlpha2CodeSimpleType.US,
+                        UsState = USStateCodeSimpleType.MO,
                         ZipCode = "65801",
                         AreaCode = "573",
                         ExchangeID = "522",
                         LineID = "1236",
+                          ID = "4"
                     })
                 }.ToArray();
         }
 
         private static ContactInformationType BuildContactInformation(Contact contact)
         {
-            return new ContactInformationType()
+          var contactInfo = new ContactInformationType()
             {
-                ContactEmailID = BuildTextType(contact.Email),
+                id = "ci" + contact.ID,               
                 ContactMailingAddress = new AddressType()
                 {
                     Item = new StructuredAddressType()
@@ -328,10 +347,12 @@ namespace MoCourtDocumentUpload.Models
                         }).ToArray(),
                         LocationCityName = new ProperNameTextType() { Value = contact.City },
                         LocationPostalCode = BuildTextType(contact.ZipCode),
+                        
                         Item1 = new CountryAlpha2CodeType()
                         {
-                            Value = CountryAlpha2CodeSimpleType.US
-                        }
+                            Value = contact.Country
+                        },
+                        
                     }
                 },
                 ContactTelephoneNumber = new TelephoneNumberType()
@@ -344,6 +365,24 @@ namespace MoCourtDocumentUpload.Models
                     }
                 }
             };
+            if (!string.IsNullOrEmpty(contact.Email))
+            {
+                contactInfo.ContactEmailID = BuildTextType(contact.Email);
+            }
+            if (!string.IsNullOrEmpty(contact.State))
+            {
+                contactInfo.ContactMailingAddress.Item.LocationStateName = new ProperNameTextType() { Value = contact.State };
+            }
+            if (contact.UsState != null)
+            {
+                contactInfo.ContactMailingAddress.Item.LocationStateUSPostalServiceCode = new USStateCodeType()
+                {
+                    Value = contact.UsState.Value
+                };
+             
+            }
+
+            return contactInfo;
         }
 
         private static OrganizationType[] BuildOrganizations()
@@ -367,11 +406,12 @@ namespace MoCourtDocumentUpload.Models
         {
             return new OrganizationType()
             {
+                id = "o" + organization.ID,
                 OrganizationName = new TextType()
                 {
                     Value = organization.Name
                 },
-                OrganizationOtherIdentification = BuildIdentificationTypes(organization.ID)
+                OrganizationOtherIdentification = BuildIdentificationTypes(organization.IdentificationID)
             };
         }
 
@@ -479,12 +519,14 @@ namespace MoCourtDocumentUpload.Models
         public List<string> StreetAdress { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string Country { get; set; }
+        public USStateCodeSimpleType? UsState { get; set; }
+        public CountryAlpha2CodeSimpleType Country { get; set; }
         public string ZipCode { get; set; }
 
         public string AreaCode { get; set; }
         public string ExchangeID { get; set; }
         public string LineID { get; set; }
+        public string ID { get; internal set; }
     }
 
     public class Person

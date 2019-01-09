@@ -1855,7 +1855,7 @@ public partial class CaseAugmentationType : AugmentationType {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=false)]
     public IdentificationType CaseOtherIdentification {
         get {
             return this.caseOtherIdentificationField;
@@ -1904,7 +1904,7 @@ public partial class OrganizationType : ComplexObjectType {
     private IdentificationType[] organizationOtherIdentificationField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=false)]
     public TextType OrganizationName {
         get {
             return this.organizationNameField;
@@ -2784,8 +2784,9 @@ public partial class EntityDocumentAssociationType : AssociationType {
     
     private ReferenceType documentReferenceField;
     
-    private ReferenceType entityRepresentationField;
-    
+    private ReferenceType entityPersonField;
+
+    private ReferenceType entityOrganizationReferenceField;
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
     public ReferenceType DocumentReference {
@@ -2798,13 +2799,26 @@ public partial class EntityDocumentAssociationType : AssociationType {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Namespace= "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0")]
-    public ReferenceType EntityRepresentation {
+    [System.Xml.Serialization.XmlElementAttribute(Namespace= "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityPersonReference
+    {
         get {
-            return this.entityRepresentationField;
+            return this.entityPersonField;
         }
         set {
-            this.entityRepresentationField = value;
+            this.entityPersonField = value;
+        }
+    }
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityOrganizationReference
+    {
+        get
+        {
+            return this.entityOrganizationReferenceField;
+        }
+        set
+        {
+            this.entityOrganizationReferenceField = value;
         }
     }
 }
@@ -2821,7 +2835,9 @@ public partial class EntityCaseAssociationType : AssociationType {
     private ReferenceType caseReferenceField;
     
     private ReferenceType entityRepresentationField;
-    
+    private ReferenceType entityPersonField;
+    private ReferenceType entityOrganizationReferenceField;
+
     private TextType associationDescriptionTextField;
     
     /// <remarks/>
@@ -2845,7 +2861,31 @@ public partial class EntityCaseAssociationType : AssociationType {
             this.entityRepresentationField = value;
         }
     }
-    
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityPersonReference
+    {
+        get
+        {
+            return this.entityPersonField;
+        }
+        set
+        {
+            this.entityPersonField = value;
+        }
+    }
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityOrganizationReference
+    {
+        get
+        {
+            return this.entityOrganizationReferenceField;
+        }
+        set
+        {
+            this.entityOrganizationReferenceField = value;
+        }
+    }
+
     /// <remarks/>
     public TextType AssociationDescriptionText {
         get {
@@ -2977,8 +3017,9 @@ public partial class StructuredAddressType : ComplexObjectType {
     private StreetType[] itemsField;
     
     private ProperNameTextType locationCityNameField;
-    
-    private object itemField;
+    private ProperNameTextType locationStateNameField;
+
+    private USStateCodeType itemField;
     
     private CountryAlpha2CodeType item1Field;
     
@@ -3005,11 +3046,23 @@ public partial class StructuredAddressType : ComplexObjectType {
             this.locationCityNameField = value;
         }
     }
-    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("LocationStateName", typeof(ProperNameTextType), IsNullable=true)]
-    [System.Xml.Serialization.XmlElementAttribute("LocationStateUSPostalServiceCode", typeof(USStateCodeType), IsNullable=true)]
-    public object Item {
+    [System.Xml.Serialization.XmlElementAttribute("LocationStateName", typeof(ProperNameTextType), IsNullable = false)]
+    public ProperNameTextType LocationStateName
+    {
+        get
+        {
+            return this.locationStateNameField;
+        }
+        set
+        {
+            this.locationStateNameField = value;
+        }
+    }
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("LocationStateUSPostalServiceCode", typeof(USStateCodeType), IsNullable=false)]
+    public USStateCodeType LocationStateUSPostalServiceCode
+    {
         get {
             return this.itemField;
         }
@@ -3076,7 +3129,18 @@ public partial class ContactInformationType : ComplexObjectType {
     private AddressType contactMailingAddress;
     private TextType contactEmailIDField;
     private TelephoneNumberType contactTelephoneNumber;
-
+    [System.Xml.Serialization.XmlElementAttribute("ContactEmailID", typeof(TextType), IsNullable = false)]
+    public TextType ContactEmailID
+    {
+        get
+        {
+            return this.contactEmailIDField;
+        }
+        set
+        {
+            this.contactEmailIDField = value;
+        }
+    }
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ContactMailingAddress", typeof(AddressType), IsNullable=true)]
     public AddressType ContactMailingAddress
@@ -3102,18 +3166,7 @@ public partial class ContactInformationType : ComplexObjectType {
         }
     }
 
-    [System.Xml.Serialization.XmlElementAttribute("ContactEmailID", typeof(TextType), IsNullable = true)]
-    public TextType ContactEmailID
-    {
-        get
-        {
-            return this.contactEmailIDField;
-        }
-        set
-        {
-            this.contactEmailIDField = value;
-        }
-    }
+   
 }
 
 /// <remarks/>

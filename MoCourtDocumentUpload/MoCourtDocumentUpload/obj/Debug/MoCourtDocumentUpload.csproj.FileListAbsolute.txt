@@ -15,3 +15,13 @@ C:\Users\Ryan and Sara's\source\repos\MoCourtDocumentUpload\MoCourtDocumentUploa
 C:\Users\Ryan and Sara's\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csproj.CopyComplete
 C:\Users\Ryan and Sara's\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.exe
 C:\Users\Ryan and Sara's\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.pdb
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.exe.config
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.exe
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.pdb
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\log4net.dll
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\log4net.xml
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csprojAssemblyReference.cache
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csproj.CoreCompileInputs.cache
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csproj.CopyComplete
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.exe
+C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.pdb

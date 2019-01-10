@@ -22,8 +22,33 @@ namespace MoCourtDocumentUpload
             // build the ecf exchange document
             //MoEcfExchangeType mo = null;
             //var x = new MoEcfExchangeType().
-
-            var result = new BuildDocument().ReturnDocumentXML();
+          
+                var result = new BuildDocument().ReturnDocumentXML();
+            try
+            {
+                var client = new MoExchangeServiceReference.FilingServicePortTypeClient();
+                client.ClientCredentials.UserName.UserName = "kryptonite_autofile";
+                client.ClientCredentials.UserName.Password = "#123mizzou";
+                var resulltz = client.fileNewCase(new MoExchangeServiceReference.MoExchangeRequestPayloadType()
+                {
+                    MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType()
+                    {
+                        PayloadFormat = "text/xml",
+                        CreationTimestamp = DateTime.Now,
+                        MessageID = Guid.NewGuid().ToString()
+                    },
+                    MoExchangeStructuredDataPayload = new MoExchangeServiceReference.MoExchangeStructuredDataPayloadType()
+                    {
+                        MoExchangeStructuredData = result
+                    }
+                });
+                var test = resulltz;
+            }
+            catch(Exception e)
+            {
+                var error = e;
+            }
+           
             // validate the document before we send it
             Console.ReadLine();
             // send document

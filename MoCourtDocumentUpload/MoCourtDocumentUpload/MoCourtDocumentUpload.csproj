@@ -60,6 +60,7 @@
     <Compile Include="Models\BuildDocument.cs" />
     <Compile Include="Models\MoEcfExchange.cs" />
     <Compile Include="Models\MoExchangeDocument.cs" />
+    <Compile Include="Models\RootObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\MoEcfServiceRepo.cs" />

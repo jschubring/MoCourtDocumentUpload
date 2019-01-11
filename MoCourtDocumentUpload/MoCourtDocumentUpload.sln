@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoCourtDocumentUpload", "MoCourtDocumentUpload\MoCourtDocumentUpload.csproj", "{8C5D7C1D-5C77-4D1B-9352-C4ACFC8EA158}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoCourtDocumentUpload.Tests", "MoCourtDocumentUpload.Tests\MoCourtDocumentUpload.Tests.csproj", "{84A8D8F4-E80A-4EA0-9D2F-3009268F7A4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,20 +17,15 @@ Global
 		{8C5D7C1D-5C77-4D1B-9352-C4ACFC8EA158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C5D7C1D-5C77-4D1B-9352-C4ACFC8EA158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C5D7C1D-5C77-4D1B-9352-C4ACFC8EA158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84A8D8F4-E80A-4EA0-9D2F-3009268F7A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A8D8F4-E80A-4EA0-9D2F-3009268F7A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A8D8F4-E80A-4EA0-9D2F-3009268F7A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A8D8F4-E80A-4EA0-9D2F-3009268F7A4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {31CF8BA6-9FCF-4298-960C-F4F2CADC55D2}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.p.vu.local/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = MoCourtDocumentUpload\\MoCourtDocumentUpload.csproj
-		SccProjectName1 = MoCourtDocumentUpload
-		SccLocalPath1 = MoCourtDocumentUpload
 	EndGlobalSection
 EndGlobal

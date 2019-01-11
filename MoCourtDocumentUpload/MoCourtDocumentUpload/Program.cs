@@ -23,12 +23,11 @@ namespace MoCourtDocumentUpload
             //MoEcfExchangeType mo = null;
             //var x = new MoEcfExchangeType().
           
-                var result = new BuildDocument().ReturnDocumentXML();
+                var result = new BuildDocument().ReturnDocumentXML(new RootObject());
             try
             {
                 var client = new MoExchangeServiceReference.FilingServicePortTypeClient();
-                client.ClientCredentials.UserName.UserName = "kryptonite_autofile";
-                client.ClientCredentials.UserName.Password = "#123mizzou";
+         
                 var resulltz = client.fileNewCase(new MoExchangeServiceReference.MoExchangeRequestPayloadType()
                 {
                     MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType()

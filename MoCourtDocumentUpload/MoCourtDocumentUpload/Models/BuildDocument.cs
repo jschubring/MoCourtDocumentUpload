@@ -109,8 +109,7 @@ namespace MoCourtDocumentUpload.Models
                            }
                                    }
             };
-        }
-
+        }     
         private static EntityDocumentAssociationType[] BuildEntityDocumentAssocation()
         {
             return new List<EntityDocumentAssociationType>(){
@@ -255,7 +254,7 @@ namespace MoCourtDocumentUpload.Models
         {
             var contactInfo = new ContactInformationType()
             {
-                id = "ci" + contact.ID,
+                id = contact.GetID(),
                 ContactMailingAddress = new AddressType()
                 {
                     Item = new StructuredAddressType()
@@ -313,7 +312,7 @@ namespace MoCourtDocumentUpload.Models
         {
             return new OrganizationType()
             {
-                id = "o" + organization.ID,
+                id = organization.GetID(),
                 OrganizationName = new TextType()
                 {
                     Value = organization.Name
@@ -377,7 +376,7 @@ namespace MoCourtDocumentUpload.Models
                 {
                     Value = SEXCodeSimpleType.M
                 },
-                id = "p" + person.ID
+                id = person.GetID()
 
             };
             if (!string.IsNullOrEmpty(person.Suffix))
@@ -400,6 +399,10 @@ namespace MoCourtDocumentUpload.Models
 
     public class Contact
     {
+        public string GetID()
+        {
+            return "ci" + ID;
+        }
         public string Email { get; set; }
         public List<string> StreetAdress { get; set; }
         public string City { get; set; }
@@ -416,6 +419,10 @@ namespace MoCourtDocumentUpload.Models
 
     public class Person
     {
+        public string GetID()
+        {
+            return "p" + ID;
+        }
         public string ID { get; set; }
         public DateTime BirthDate { get; set; }
         public string GivenName { get; set; }
@@ -427,6 +434,10 @@ namespace MoCourtDocumentUpload.Models
     }
     public class Organization
     {
+        public string GetID()
+        {
+            return "o" + ID;
+        }
         public string ID { get; set; }
         public string Name { get; set; }
         public string IdentificationID { get; set; }

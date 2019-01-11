@@ -1,8 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoCourtDocumentUpload.Models;
+using Org.XmlUnit.Builder;
+using Org.XmlUnit.Input;
+using Org.XmlUnit.Validation;
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 
 namespace MoCourtDocumentUpload.Tests
 {
@@ -15,7 +19,15 @@ namespace MoCourtDocumentUpload.Tests
             var test = CreateTestObject();
             var xmlResult = new BuildDocument().ReturnDocumentXML(test);
             var expected = File.ReadAllText("ExampleFile.XML");
-            Assert.AreEqual(expected, xmlResult);
+            var myDiff = DiffBuilder.Compare(expected).WithTest(xmlResult)
+
+            //.WithDifferenceEvaluator(new IgnoreAttributeDifferenceEvaluator("attr").Evaluate)
+
+            .CheckForSimilar()
+
+            .Build();          
+
+            Assert.IsFalse(myDiff.HasDifferences(), myDiff.ToString());
         }
 
         private RootObject CreateTestObject()

@@ -47,6 +47,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="xmlunit-core, Version=2.6.0.133, Culture=neutral, PublicKeyToken=e7d7e3088fd452f6, processorArchitecture=MSIL">
+      <HintPath>..\packages\XMLUnit.Core.2.6.0\lib\net35\xmlunit-core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentCreationTests.cs" />

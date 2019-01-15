@@ -236,7 +236,7 @@ public partial class PersonType : ComplexObjectType {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=false)]
     public IdentificationType PersonOtherIdentification {
         get {
             return this.personOtherIdentificationField;
@@ -1703,7 +1703,8 @@ public partial class MetadataType1 : MetadataType {
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
 [System.Xml.Serialization.XmlRootAttribute("AssociationDescriptionText", Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0", IsNullable=false)]
-public partial class TextType : @string {
+public partial class TextType : @string
+{
 }
 
 /// <remarks/>
@@ -1716,7 +1717,8 @@ public partial class TextType : @string {
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://niem.gov/niem/proxy/xsd/2.0")]
 [System.Xml.Serialization.XmlRootAttribute("PaymentCourtDebitAccount", Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable=true)]
-public partial class @string {
+public partial class @string
+{
     
     private string idField;
     
@@ -1853,7 +1855,7 @@ public partial class CaseAugmentationType : AugmentationType {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=false)]
     public IdentificationType CaseOtherIdentification {
         get {
             return this.caseOtherIdentificationField;
@@ -1902,7 +1904,7 @@ public partial class OrganizationType : ComplexObjectType {
     private IdentificationType[] organizationOtherIdentificationField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=false)]
     public TextType OrganizationName {
         get {
             return this.organizationNameField;
@@ -1933,13 +1935,13 @@ public partial class OrganizationType : ComplexObjectType {
 [System.Xml.Serialization.XmlRootAttribute("Identification", Namespace="http://niem.gov/niem/niem-core/2.0", IsNullable=true)]
 public partial class IdentificationType : ComplexObjectType {
     
-    private @string identificationIDField;
+    private TextType identificationIDField;
     
-    private object identificationCategoryField;
+    private IdentificationCategoryCodeSimpleType identificationCategoryField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string IdentificationID {
+    public TextType IdentificationID {
         get {
             return this.identificationIDField;
         }
@@ -1947,9 +1949,9 @@ public partial class IdentificationType : ComplexObjectType {
             this.identificationIDField = value;
         }
     }
-    
+        [System.Xml.Serialization.XmlElementAttribute("IdentificationCategoryCode", typeof(IdentificationCategoryCodeSimpleType), Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0")]
     /// <remarks/>
-    public object IdentificationCategory {
+    public IdentificationCategoryCodeSimpleType IdentificationCategory {
         get {
             return this.identificationCategoryField;
         }
@@ -2070,7 +2072,7 @@ public partial class BinaryType : ComplexObjectType {
     
     private base64Binary itemField;
     
-    private @string binaryFormatIDField;
+    private TextType binaryFormatIDField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("BinaryBase64Object", IsNullable=true)]
@@ -2085,7 +2087,7 @@ public partial class BinaryType : ComplexObjectType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string BinaryFormatID {
+    public TextType BinaryFormatID {
         get {
             return this.binaryFormatIDField;
         }
@@ -2328,14 +2330,13 @@ public partial class ObligationType : ComplexObjectType {
 [System.Xml.Serialization.XmlRootAttribute("Fee", Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0", IsNullable=false)]
 public partial class ObligationType1 : ObligationType {
     
-    private object item1Field;
+    private PaymentElectronicBankDraftType item1Field;
     
     private ObligationExemptionType1[] obligationExemptionField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("PaymentCourtDebitAccount", typeof(@string), Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable=true)]
     [System.Xml.Serialization.XmlElementAttribute("PaymentElectronicBankDraft", typeof(PaymentElectronicBankDraftType), Namespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable=true)]
-    public object Item1 {
+    public PaymentElectronicBankDraftType Item1 {
         get {
             return this.item1Field;
         }
@@ -2369,9 +2370,9 @@ public partial class PaymentElectronicBankDraftType : ComplexObjectType {
     
     private CheckCategoryCodeType checkCategoryCodeField;
     
-    private @string routingNumberField;
+    private TextType routingNumberField;
     
-    private @string accountNumberField;
+    private TextType accountNumberField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
@@ -2397,7 +2398,7 @@ public partial class PaymentElectronicBankDraftType : ComplexObjectType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string RoutingNumber {
+    public TextType RoutingNumber {
         get {
             return this.routingNumberField;
         }
@@ -2408,7 +2409,7 @@ public partial class PaymentElectronicBankDraftType : ComplexObjectType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string AccountNumber {
+    public TextType AccountNumber {
         get {
             return this.accountNumberField;
         }
@@ -2748,6 +2749,8 @@ public partial class OrganizationContactInformationAssociationType : Association
     private ReferenceType contactInformationReferenceField;
     
     /// <remarks/>
+    /// 
+      [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
     public ReferenceType OrganizationReference {
         get {
             return this.organizationReferenceField;
@@ -2756,8 +2759,10 @@ public partial class OrganizationContactInformationAssociationType : Association
             this.organizationReferenceField = value;
         }
     }
-    
+
     /// <remarks/>
+    /// 
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://niem.gov/niem/niem-core/2.0")]
     public ReferenceType ContactInformationReference {
         get {
             return this.contactInformationReferenceField;
@@ -2779,8 +2784,9 @@ public partial class EntityDocumentAssociationType : AssociationType {
     
     private ReferenceType documentReferenceField;
     
-    private object entityRepresentationField;
-    
+    private ReferenceType entityPersonField;
+
+    private ReferenceType entityOrganizationReferenceField;
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
     public ReferenceType DocumentReference {
@@ -2793,13 +2799,26 @@ public partial class EntityDocumentAssociationType : AssociationType {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
-    public object EntityRepresentation {
+    [System.Xml.Serialization.XmlElementAttribute(Namespace= "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityPersonReference
+    {
         get {
-            return this.entityRepresentationField;
+            return this.entityPersonField;
         }
         set {
-            this.entityRepresentationField = value;
+            this.entityPersonField = value;
+        }
+    }
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityOrganizationReference
+    {
+        get
+        {
+            return this.entityOrganizationReferenceField;
+        }
+        set
+        {
+            this.entityOrganizationReferenceField = value;
         }
     }
 }
@@ -2815,8 +2834,10 @@ public partial class EntityCaseAssociationType : AssociationType {
     
     private ReferenceType caseReferenceField;
     
-    private object entityRepresentationField;
-    
+    private ReferenceType entityRepresentationField;
+    private ReferenceType entityPersonField;
+    private ReferenceType entityOrganizationReferenceField;
+
     private TextType associationDescriptionTextField;
     
     /// <remarks/>
@@ -2832,7 +2853,7 @@ public partial class EntityCaseAssociationType : AssociationType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Namespace="http://niem.gov/niem/niem-core/2.0")]
-    public object EntityRepresentation {
+    public ReferenceType EntityRepresentation {
         get {
             return this.entityRepresentationField;
         }
@@ -2840,7 +2861,31 @@ public partial class EntityCaseAssociationType : AssociationType {
             this.entityRepresentationField = value;
         }
     }
-    
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityPersonReference
+    {
+        get
+        {
+            return this.entityPersonField;
+        }
+        set
+        {
+            this.entityPersonField = value;
+        }
+    }
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0", IsNullable = false)]
+    public ReferenceType EntityOrganizationReference
+    {
+        get
+        {
+            return this.entityOrganizationReferenceField;
+        }
+        set
+        {
+            this.entityOrganizationReferenceField = value;
+        }
+    }
+
     /// <remarks/>
     public TextType AssociationDescriptionText {
         get {
@@ -2861,17 +2906,17 @@ public partial class EntityCaseAssociationType : AssociationType {
 [System.Xml.Serialization.XmlRootAttribute("NANPTelephoneNumber", Namespace="http://niem.gov/niem/niem-core/2.0", IsNullable=true)]
 public partial class NANPTelephoneNumberType : ComplexObjectType {
     
-    private @string telephoneAreaCodeIDField;
+    private TextType telephoneAreaCodeIDField;
     
-    private @string telephoneExchangeIDField;
+    private TextType telephoneExchangeIDField;
     
-    private @string telephoneLineIDField;
+    private TextType telephoneLineIDField;
     
-    private @string telephoneSuffixIDField;
+    private TextType telephoneSuffixIDField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string TelephoneAreaCodeID {
+    public TextType TelephoneAreaCodeID {
         get {
             return this.telephoneAreaCodeIDField;
         }
@@ -2882,7 +2927,7 @@ public partial class NANPTelephoneNumberType : ComplexObjectType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string TelephoneExchangeID {
+    public TextType TelephoneExchangeID {
         get {
             return this.telephoneExchangeIDField;
         }
@@ -2893,7 +2938,7 @@ public partial class NANPTelephoneNumberType : ComplexObjectType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string TelephoneLineID {
+    public TextType TelephoneLineID {
         get {
             return this.telephoneLineIDField;
         }
@@ -2903,8 +2948,8 @@ public partial class NANPTelephoneNumberType : ComplexObjectType {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string TelephoneSuffixID {
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=false)]
+    public TextType TelephoneSuffixID {
         get {
             return this.telephoneSuffixIDField;
         }
@@ -2972,12 +3017,13 @@ public partial class StructuredAddressType : ComplexObjectType {
     private StreetType[] itemsField;
     
     private ProperNameTextType locationCityNameField;
-    
-    private object itemField;
+    private ProperNameTextType locationStateNameField;
+
+    private USStateCodeType itemField;
     
     private CountryAlpha2CodeType item1Field;
     
-    private @string locationPostalCodeField;
+    private TextType locationPostalCodeField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("LocationStreet", IsNullable=true)]
@@ -3000,11 +3046,23 @@ public partial class StructuredAddressType : ComplexObjectType {
             this.locationCityNameField = value;
         }
     }
-    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("LocationStateName", typeof(ProperNameTextType), IsNullable=true)]
-    [System.Xml.Serialization.XmlElementAttribute("LocationStateUSPostalServiceCode", typeof(USStateCodeType), IsNullable=true)]
-    public object Item {
+    [System.Xml.Serialization.XmlElementAttribute("LocationStateName", typeof(ProperNameTextType), IsNullable = false)]
+    public ProperNameTextType LocationStateName
+    {
+        get
+        {
+            return this.locationStateNameField;
+        }
+        set
+        {
+            this.locationStateNameField = value;
+        }
+    }
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("LocationStateUSPostalServiceCode", typeof(USStateCodeType), IsNullable=false)]
+    public USStateCodeType LocationStateUSPostalServiceCode
+    {
         get {
             return this.itemField;
         }
@@ -3026,7 +3084,7 @@ public partial class StructuredAddressType : ComplexObjectType {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-    public @string LocationPostalCode {
+    public TextType LocationPostalCode {
         get {
             return this.locationPostalCodeField;
         }
@@ -3068,20 +3126,47 @@ public partial class AddressType : ComplexObjectType {
 [System.Xml.Serialization.XmlRootAttribute("ContactInformation", Namespace="http://niem.gov/niem/niem-core/2.0", IsNullable=true)]
 public partial class ContactInformationType : ComplexObjectType {
     
-    private object[] itemsField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("ContactEmailID", typeof(@string), IsNullable=true)]
-    [System.Xml.Serialization.XmlElementAttribute("ContactMailingAddress", typeof(AddressType), IsNullable=true)]
-    [System.Xml.Serialization.XmlElementAttribute("ContactTelephoneNumber", typeof(TelephoneNumberType), IsNullable=true)]
-    public object[] Items {
-        get {
-            return this.itemsField;
+    private AddressType contactMailingAddress;
+    private TextType contactEmailIDField;
+    private TelephoneNumberType contactTelephoneNumber;
+    [System.Xml.Serialization.XmlElementAttribute("ContactEmailID", typeof(TextType), IsNullable = false)]
+    public TextType ContactEmailID
+    {
+        get
+        {
+            return this.contactEmailIDField;
         }
-        set {
-            this.itemsField = value;
+        set
+        {
+            this.contactEmailIDField = value;
         }
     }
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("ContactMailingAddress", typeof(AddressType), IsNullable=true)]
+    public AddressType ContactMailingAddress
+    {
+        get {
+            return this.contactMailingAddress;
+        }
+        set {
+            this.contactMailingAddress = value;
+        }
+    }
+
+    [System.Xml.Serialization.XmlElementAttribute("ContactTelephoneNumber", typeof(TelephoneNumberType), IsNullable = true)]
+    public TelephoneNumberType ContactTelephoneNumber
+    {
+        get
+        {
+            return this.contactTelephoneNumber;
+        }
+        set
+        {
+            this.contactTelephoneNumber = value;
+        }
+    }
+
+   
 }
 
 /// <remarks/>
@@ -3135,7 +3220,7 @@ public partial class PersonNameType : ComplexObjectType {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+    [System.Xml.Serialization.XmlElementAttribute(IsNullable=false)]
     public TextType PersonNameSuffixText {
         get {
             return this.personNameSuffixTextField;

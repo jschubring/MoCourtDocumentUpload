@@ -1,30 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoCourtDocumentUpload.MoExchangeServiceReference;
-using MoExchangeRequestPayloadType = MoCourtDocumentUpload.MoExchangeServiceReference.MoExchangeRequestPayloadType;
 
 namespace MoCourtDocumentUpload.Repos
 {
     public class MoEcfServiceRepo
     {
-        public void Something()
+        public MoExchangeServiceReference.MoExchangeResponsePayloadType SendRequest(MoEcfExchangeType doc)
         {
-            var document = "we need MoEcfExchangeDocument2";
-            string theData = "the data";
 
-            var x = new MoExchangeServiceReference.FilingServicePortTypeClient();
-            x.fileNewCase(new MoExchangeServiceReference.MoExchangeRequestPayloadType()
+            MoExchangeServiceReference.MoExchangeResponsePayloadType response = null;
+
+            try
             {
-                MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType(),
-                MoExchangeNotification = new MoExchangeServiceReference.MoExchangeNotificationType(),
-                MoExchangeStructuredDataPayload = new MoExchangeServiceReference.MoExchangeStructuredDataPayloadType
+                var payload = new MoExchangeServiceReference.MoExchangeRequestPayloadType()
                 {
-                    MoExchangeStructuredData = theData
-                }
-            });
+                    MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType(),
+                    MoExchangeNotification = new MoExchangeServiceReference.MoExchangeNotificationType(),
+                    MoExchangeStructuredDataPayload = new MoExchangeServiceReference.MoExchangeStructuredDataPayloadType
+                    {
+                        MoExchangeStructuredData = doc.ToString()
+                    }
+                };
+
+                var x = new MoExchangeServiceReference.FilingServicePortTypeClient();
+                response = x.fileNewCase(payload);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: ", ex);
+            }
+
+            return response;
         }
     }
 }

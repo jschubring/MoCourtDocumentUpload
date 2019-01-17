@@ -21,13 +21,14 @@ namespace MoCourtDocumentUpload
 
             // build the ecf exchange document
             //MoEcfExchangeType mo = null;
-            //var x = new MoEcfExchangeType().
+            var x = new MoEcfExchangeType();
           
-                var result = new BuildDocument().ReturnDocumentXML(new RootObject());
+                
             try
             {
                 var client = new MoExchangeServiceReference.FilingServicePortTypeClient();
-         
+                client.ClientCredentials.UserName.UserName = "";
+                client.ClientCredentials.UserName.Password = "";
                 var resulltz = client.fileNewCase(new MoExchangeServiceReference.MoExchangeRequestPayloadType()
                 {
                     MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType()
@@ -38,7 +39,7 @@ namespace MoCourtDocumentUpload
                     },
                     MoExchangeStructuredDataPayload = new MoExchangeServiceReference.MoExchangeStructuredDataPayloadType()
                     {
-                        MoExchangeStructuredData = result
+                        MoExchangeStructuredData = ""
                     }
                 });
                 var test = resulltz;

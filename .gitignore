@@ -5,3 +5,8 @@
 /.vs
 /MoCourtDocumentUpload/.vs/MoCourtDocumentUpload/v15
 /MoCourtDocumentUpload/MoCourtDocumentUpload/obj
+/MoCourtDocumentUpload/packages/log4net.2.0.8
+/MoCourtDocumentUpload/MoCourtDocumentUpload/bin/Debug
+/MoCourtDocumentUpload/MoCourtDocumentUpload.Tests/obj/Debug
+/MoCourtDocumentUpload/packages
+/MoCourtDocumentUpload/MoCourtDocumentUpload.Tests/bin/Debug

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using MoCourtDocumentUpload.Models;
 using System.Xml.Serialization;
 using System.Xml;
+using MoCourtDocumentUpload.Repos;
+using MoCourtDocumentUpload.Services;
 
 
 namespace MoCourtDocumentUpload
@@ -15,50 +17,56 @@ namespace MoCourtDocumentUpload
     class Program
     {
         //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static MoEcfServiceRepo _service;
+
+        public Program()
+        {
+            _service = new MoEcfServiceRepo();
+        }
+
         static void Main(string[] args)
         {
             //log4net.Config.XmlConfigurator.Configure();
-
-            // build the ecf exchange document
-            //MoEcfExchangeType mo = null;
-            var x = new MoEcfExchangeType();
-          
-                
-            try
-            {
-                var client = new MoExchangeServiceReference.FilingServicePortTypeClient();
-                client.ClientCredentials.UserName.UserName = "";
-                client.ClientCredentials.UserName.Password = "";
-                var resulltz = client.fileNewCase(new MoExchangeServiceReference.MoExchangeRequestPayloadType()
-                {
-                    MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType()
-                    {
-                        PayloadFormat = "text/xml",
-                        CreationTimestamp = DateTime.Now,
-                        MessageID = Guid.NewGuid().ToString()
-                    },
-                    MoExchangeStructuredDataPayload = new MoExchangeServiceReference.MoExchangeStructuredDataPayloadType()
-                    {
-                        MoExchangeStructuredData = ""
-                    }
-                });
-                var test = resulltz;
-            }
-            catch(Exception e)
-            {
-                var error = e;
-            }
+            var doc = BuildTheDocument();
            
-            // validate the document before we send it
-            Console.ReadLine();
-            // send document
-            // serialize document to text
-            // build request
-            // send request and get response
+            var isValid = ValidateTheDocument(doc);
 
-            // process response
+            if (isValid)
+            {
+                var response = SendTheDocument(doc);
+                ProcessResponse(response);
+            }
+            else
+            {
+                HandleInvalidDocument();
+            }
 
             SendSuccessMessage();
+        }
+
+        private static void ProcessResponse(MoExchangeServiceReference.MoExchangeResponsePayloadType response)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void HandleInvalidDocument()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static MoExchangeServiceReference.MoExchangeResponsePayloadType SendTheDocument(string doc)
+        {
+            return _service.SendRequest(doc);
+        }
+
+        private static bool ValidateTheDocument(string doc)
+        {
+            var validator = new Validator();
+            return validator.ValidateDocument(doc);
+        }
+        private static string BuildTheDocument()
+        {
+            return new BuildDocument().ReturnDocumentXML(new RootObject());
         }
 
         private static void SendSuccessMessage()

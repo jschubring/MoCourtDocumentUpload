@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoCourtDocumentUpload.Models;
+using MoCourtDocumentUpload.Repos;
 using Org.XmlUnit.Builder;
 using Org.XmlUnit.Input;
 using Org.XmlUnit.Validation;
@@ -29,8 +30,17 @@ namespace MoCourtDocumentUpload.Tests
 
             Assert.IsFalse(myDiff.HasDifferences(), myDiff.ToString());
         }
+		[TestMethod]
+		public void ServiceIntegrationTest()
+		{
+			var test = CreateTestObject();
+			var xmlResult = new BuildDocument().ReturnDocumentXML(test);
+			var response = new MoEcfServiceRepo().SendRequest(xmlResult);
 
-        private RootObject CreateTestObject()
+			Assert.IsTrue(response.MoExchangeStructuredDataPayload.MoExchangeStructuredData.Contains("RECEIVED"));
+		}
+
+		private RootObject CreateTestObject()
         {
             return new RootObject()
             {

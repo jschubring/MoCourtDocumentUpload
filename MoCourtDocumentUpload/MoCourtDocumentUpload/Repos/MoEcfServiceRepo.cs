@@ -4,7 +4,7 @@ namespace MoCourtDocumentUpload.Repos
 {
     public class MoEcfServiceRepo
     {
-        public MoExchangeServiceReference.MoExchangeResponsePayloadType SendRequest(MoEcfExchangeType doc)
+        public MoExchangeServiceReference.MoExchangeResponsePayloadType SendRequest(string doc)
         {
 
             MoExchangeServiceReference.MoExchangeResponsePayloadType response = null;
@@ -13,16 +13,23 @@ namespace MoCourtDocumentUpload.Repos
             {
                 var payload = new MoExchangeServiceReference.MoExchangeRequestPayloadType()
                 {
-                    MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType(),
+                    MoExchangeHeader = new MoExchangeServiceReference.MoExchangeHeaderType
+                    {
+                        PayloadFormat = "text/xml",
+                        CreationTimestamp = DateTime.Now,
+                        MessageID = Guid.NewGuid().ToString()
+                    },
                     MoExchangeNotification = new MoExchangeServiceReference.MoExchangeNotificationType(),
                     MoExchangeStructuredDataPayload = new MoExchangeServiceReference.MoExchangeStructuredDataPayloadType
                     {
-                        MoExchangeStructuredData = doc.ToString()
+                        MoExchangeStructuredData = doc
                     }
                 };
 
                 var x = new MoExchangeServiceReference.FilingServicePortTypeClient();
                 response = x.fileNewCase(payload);
+
+                return response;
             }
             catch (Exception ex)
             {

@@ -1,8 +1,12 @@
-﻿using MoCourtDocumentUpload.Helpers;
+﻿using LinqToExcel;
+using LinqToExcel.Attributes;
+using MoCourtDocumentUpload.Helpers;
 using MoCourtDocumentUpload.Models;
 using MoCourtDocumentUpload.Repos;
 using MoCourtDocumentUpload.Services;
 using System;
+using System.Configuration;
+using System.Linq;
 
 namespace MoCourtDocumentUpload
 {
@@ -14,9 +18,12 @@ namespace MoCourtDocumentUpload
 		{
 			_service = new MoEcfServiceRepo();
 		}
-		public void processFile()
-		{
-					
+		public void processFile(string fileName)
+		{		
+			var excel = new ExcelQueryFactory(fileName);
+			var indianaCompanies = from c in excel.Worksheet<ExcelObject>()								
+								   select c;
+
 			var doc = BuildTheDocument();
            
             var isValid = ValidateTheDocument(doc);
@@ -63,5 +70,12 @@ namespace MoCourtDocumentUpload
         {
 			Logger.Info("Message Sent");
 		}
+	}
+	public class ExcelObject
+	{
+		[ExcelColumn("Test1")]
+		public string Test1 { get; set; }
+		[ExcelColumn("Test2")]
+		public string Test2 { get; set; }
 	}
 }

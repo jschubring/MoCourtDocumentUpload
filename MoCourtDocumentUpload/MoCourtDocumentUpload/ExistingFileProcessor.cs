@@ -29,7 +29,7 @@ namespace MoCourtDocumentUpload
 		{
 			try
 			{
-				processFile.processFile();
+				processFile.processFile(path);
 			}
 			catch (Exception ex)
 			{

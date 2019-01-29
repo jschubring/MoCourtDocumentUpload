@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2012 rel. 2 sp1 (x64) (http://www.altova.com) by OSCA30620 (MO OSCA) -->
+<xsd:schema xmlns:mo-ecf="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0" xmlns:mo-ecf-ext="http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i2="http://niem.gov/niem/appinfo/2.1" targetNamespace="http://www.courts.mo.gov/exchanges/MoEcfExchange/1.0" version="1">
+	<xsd:annotation>
+		<xsd:documentation>Missouri Electronic Case Filing Schema</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import namespace="http://www.courts.mo.gov/exchanges/MoEcfExchangeExtensions/1.0" schemaLocation="MoEcfExchangeExtensions.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.1" schemaLocation="niem/appinfo/2.1/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="niem/domains/jxdm/4.1/jxdm.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:element name="MoEcfExchange" type="mo-ecf:MoEcfExchangeType">
+		<xsd:annotation>
+			<xsd:documentation>This information complaint model provides a data and relationship framework for information exchange based on the standard forms concerning a specific electronic filing.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="MoEcfExchangeType">
+		<xsd:annotation>
+			<xsd:documentation>This information complaint model provides a data and relationship framework for information exchange based on the standard forms concerning a specific electronic filing.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:OrganizationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Case" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="mo-ecf-ext:EntityCaseAssociation" minOccurs="0" maxOccurs="900"/>
+					<xsd:element ref="nc:Identification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="mo-ecf-ext:Fee" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="nc:CommentText" minOccurs="0" maxOccurs="1"/>
+					<xsd:element ref="mo-ecf-ext:PrimaryDocument" minOccurs="1" maxOccurs="unbounded"/>
+					<xsd:element ref="mo-ecf-ext:EntityDocumentAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="EntityPersonReference" type="s:ReferenceType" substitutionGroup="nc:EntityRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Allow a Person element to take the place of an nc:EntityRepresentation.</xsd:documentation>
+			<xsd:appinfo>
+				<i:ReferenceTarget i:name="Person"/>
+				<i:Base i:name="RoleOf"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EntityOrganizationReference" type="s:ReferenceType" substitutionGroup="nc:EntityRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Allow an Organization element to take the place of an nc:EntityRepresentation.</xsd:documentation>
+			<xsd:appinfo>
+				<i:ReferenceTarget i:name="Organization"/>
+				<i:Base i:name="RoleOf"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PaymentMeans" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>Abstract payment type to be substituted.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PaymentCourtDebitAccount" type="niem-xsd:string" substitutionGroup="mo-ecf:PaymentMeans" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>Allows the use of a court debit account for fee/obligation payment.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="PaymentMeans"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="BankAccountCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Enumeration containing the available bank account types.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="C">
+				<xsd:annotation>
+					<xsd:documentation>Checking</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S">
+				<xsd:annotation>
+					<xsd:documentation>Savings</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BankAccountCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Enumeration containing the available bank account types.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="mo-ecf:BankAccountCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="BankAccountCategoryCode" type="mo-ecf:BankAccountCategoryCodeType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The type of bank account.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="CheckCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Enumeration containing the available check types.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="B">
+				<xsd:annotation>
+					<xsd:documentation>Business</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="P">
+				<xsd:annotation>
+					<xsd:documentation>Personal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CheckCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Enumeration containing the available check types.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="mo-ecf:CheckCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="CheckCategoryCode" type="mo-ecf:CheckCategoryCodeType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The type of check.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RoutingNumber" type="niem-xsd:string" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The bank routing number.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AccountNumber" type="niem-xsd:string" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The bank account number.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="PaymentElectronicBankDraftType">
+		<xsd:annotation>
+			<xsd:documentation>This is information required to perform a payment via electronic bank draft.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="mo-ecf:BankAccountCategoryCode" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="mo-ecf:CheckCategoryCode" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="mo-ecf:RoutingNumber" minOccurs="1" maxOccurs="1"/>
+					<xsd:element ref="mo-ecf:AccountNumber" minOccurs="1" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PaymentElectronicBankDraft" type="mo-ecf:PaymentElectronicBankDraftType" substitutionGroup="mo-ecf:PaymentMeans" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>This is information required to perform a payment via electronic bank draft.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="PaymentMeans"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentificationCategoryCode" type="mo-ecf:IdentificationCategoryCodeType" substitutionGroup="nc:IdentificationCategory" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The type of identification.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:name="IdentificationCategory"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="IdentificationCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration of Identification types.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="PIDM">
+				<xsd:annotation>
+					<xsd:documentation>JIS System Entity Identification Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPRIDEN">
+				<xsd:annotation>
+					<xsd:documentation>JIS Entity Identification Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="EIN">
+				<xsd:annotation>
+					<xsd:documentation>Employer Identification Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SSN">
+				<xsd:annotation>
+					<xsd:documentation>Social Security Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CONFNO">
+				<xsd:annotation>
+					<xsd:documentation>ECF Confirmation Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CASENO">
+				<xsd:annotation>
+					<xsd:documentation>JIS Case Number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="USERNAME">
+				<xsd:annotation>
+					<xsd:documentation>ECF username to use for this submission.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ATTYREFNO">
+				<xsd:annotation>
+					<xsd:documentation>Your internal case reference number used to keep track of filings.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="IdentificationCategoryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>The type of identification.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="mo-ecf:IdentificationCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="ObligationExemptionCode" type="mo-ecf:ObligationExemptionCodeType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>ECF filing fee exemption reason.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="ObligationExemptionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>ECF filing fee exemption reason enumeration.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="514">
+				<xsd:annotation>
+					<xsd:documentation>Exempt From Filing Fees by Section 514.040 RSMo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GOVATTY">
+				<xsd:annotation>
+					<xsd:documentation>Government Attorney - Exempt from Filing Fees</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="IFP">
+				<xsd:annotation>
+					<xsd:documentation>In Forma Pauperis</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="OTHER">
+				<xsd:annotation>
+					<xsd:documentation>Fee Waived / Not Required (explain special circumstances in Notes to Clerk/CommentText)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ObligationExemptionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>ECF filing fee exemption reason enumeration.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="mo-ecf:ObligationExemptionCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

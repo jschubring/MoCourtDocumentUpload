@@ -67,7 +67,7 @@ namespace MoCourtDocumentUpload.Models
 
         private static IdentificationType[] BuildIdentification(List<Identification> identifications)
         {
-            return identifications.Select(x => BuildIdentificationType(x)).ToArray();
+            return identifications.Select(BuildIdentificationType).ToArray();
         }
 
         private static DocumentType1[] BuildPrimaryDoc(List<DocumentGroup> documentGroups)
@@ -335,7 +335,7 @@ namespace MoCourtDocumentUpload.Models
 
         private static PersonType[] BuildPersons(List<Person> people)
         {
-            return people.Select(x => BuildPerson(x)).ToArray();
+            return people.Select(BuildPerson).ToArray();
         }
 
         private static PersonType BuildPerson(Person person)

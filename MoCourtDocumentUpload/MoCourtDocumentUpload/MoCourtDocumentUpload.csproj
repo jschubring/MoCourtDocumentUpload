@@ -65,11 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaseFile.cs" />
     <Compile Include="Connected Services\MoExchangeServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="DocumentProcessor.cs" />
     <Compile Include="ExistingFileProcessor.cs" />
     <Compile Include="Extensions\StringWriterWithEncoding.cs" />
     <Compile Include="FileProcessor.cs">

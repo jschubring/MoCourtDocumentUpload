@@ -9,10 +9,12 @@ namespace MoCourtDocumentUpload
 	{		
 		private FileSystemWatcher _theWatcher;
 		private ProcessFile processFile;
+		private string _fileDirectory;
 		public FileWatcher()
 		{
 			_theWatcher = new FileSystemWatcher();
-			processFile = new ProcessFile();
+			_fileDirectory = ConfigurationManager.AppSettings["filePDirectory"];
+			processFile = new ProcessFile(new DocumentProcessor());
 		}
 
 		public void stopFileWatch()
@@ -25,7 +27,7 @@ namespace MoCourtDocumentUpload
 		{
 			try
 			{
-				_theWatcher.Path = ConfigurationManager.AppSettings["processedPath"];
+				_theWatcher.Path = _fileDirectory + "Unprocessed";
 				_theWatcher.NotifyFilter = NotifyFilters.CreationTime | NotifyFilters.DirectoryName | NotifyFilters.FileName;
 				_theWatcher.Filter = "*.xls";
 				_theWatcher.Created += new FileSystemEventHandler(OnChanged);
@@ -46,7 +48,7 @@ namespace MoCourtDocumentUpload
 		{
 			try
 			{
-				processFile.processFile(e.FullPath);
+				processFile.processFile(new CaseFile(e.FullPath, _fileDirectory));
 			}
 			catch (Exception ex)
 			{

@@ -27,7 +27,9 @@ namespace MoCourtDocumentUpload.Repos
                 };
 
                 var x = new MoExchangeServiceReference.FilingServicePortTypeClient();
-                response = x.fileNewCase(payload);
+				x.ClientCredentials.UserName.UserName = "kryptonite_autofile";
+				x.ClientCredentials.UserName.Password = "#123mizzou";
+				response = x.fileNewCase(payload);
 
                 return response;
             }

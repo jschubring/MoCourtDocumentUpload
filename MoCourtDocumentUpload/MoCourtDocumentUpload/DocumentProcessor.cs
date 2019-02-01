@@ -48,12 +48,13 @@ namespace MoCourtDocumentUpload
 
 		private bool ProcessResponse(MoExchangeServiceReference.MoExchangeResponsePayloadType response)
 		{
+            //TODO: Do we need to provide user specific information regarding failure to upload?
 		    return response.MoExchangeStructuredDataPayload.MoExchangeStructuredData.Contains("RECEIVED");
 		}
 
 		private static void HandleInvalidDocument()
 		{
-			throw new NotImplementedException();
+			// TODO: How do we / should we inform user of invalid document?
 		}
 
 		private static MoExchangeServiceReference.MoExchangeResponsePayloadType SendTheDocument(string doc)

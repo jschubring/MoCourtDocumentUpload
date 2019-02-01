@@ -30,7 +30,7 @@ namespace MoCourtDocumentUpload
 		{
 			try
 			{
-				processFile.processFile(new CaseFile(path, _fileDirectory));
+				processFile.Process(new CaseFile(path, _fileDirectory));
 			}
 			catch (Exception ex)
 			{

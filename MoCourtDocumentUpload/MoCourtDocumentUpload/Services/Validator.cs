@@ -12,8 +12,8 @@ namespace MoCourtDocumentUpload.Services
 {
     public class Validator
     {
-        private string _nsNiemCore;
-        private string _nsMoEcf;
+        private readonly string _nsNiemCore;
+        private readonly string _nsMoEcf;
 
         public Validator(string nsNiemCore = null, string nsMoEcf = null)
         {
@@ -27,12 +27,12 @@ namespace MoCourtDocumentUpload.Services
             try
             {
                 var xml = BuildXmlDocument();
-
                 xml.LoadXml(document);
 
                 var eventHandler = new ValidationEventHandler(ValidationEventHandler);
-
                 xml.Validate(eventHandler);
+                ValidateSpecficFields(xml);
+
                 valid = true;
             }
             catch (Exception ex)
@@ -41,6 +41,11 @@ namespace MoCourtDocumentUpload.Services
             }
 
             return valid;
+        }
+
+        private void ValidateSpecficFields(XmlDocument xml)
+        {
+            throw new NotImplementedException();
         }
 
         private XmlDocument BuildXmlDocument()

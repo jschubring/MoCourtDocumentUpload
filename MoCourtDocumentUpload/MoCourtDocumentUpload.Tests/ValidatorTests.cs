@@ -20,5 +20,14 @@ namespace MoCourtDocumentUpload.Tests
             var result = validator.ValidateDocument(document);
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void GivenValidateDocument_WhenBadRequestXmlUsed_Explodes()
+        {
+            var validator = new Validator();
+            var document = File.ReadAllText("BadRequest.XML");
+            var result = validator.ValidateDocument(document);
+            Assert.IsFalse(result);
+        }
     }
 }

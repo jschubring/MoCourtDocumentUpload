@@ -16,8 +16,10 @@ namespace MoCourtDocumentUpload
 		{
 			_service = new MoEcfServiceRepo();
 		}
-		public void Process(string fileFullPath)
+		public bool Process(string fileFullPath)
 		{
+		    var wasSuccessfullyUploaded = false;
+
 			GetFile(fileFullPath);
 
 			var doc = BuildTheDocument();
@@ -27,12 +29,14 @@ namespace MoCourtDocumentUpload
 			if (isValid)
 			{
 				var response = SendTheDocument(doc);
-				ProcessResponse(response);
+				wasSuccessfullyUploaded = ProcessResponse(response);
 			}
 			else
 			{
 				HandleInvalidDocument();
 			}
+
+		    return wasSuccessfullyUploaded;
 		}
 
 		private static void GetFile(string fileName)
@@ -42,14 +46,15 @@ namespace MoCourtDocumentUpload
 								   select c;
 		}
 
-		private static void ProcessResponse(MoExchangeServiceReference.MoExchangeResponsePayloadType response)
+		private bool ProcessResponse(MoExchangeServiceReference.MoExchangeResponsePayloadType response)
 		{
-			throw new NotImplementedException();
+            //TODO: Do we need to provide user specific information regarding failure to upload?
+		    return response.MoExchangeStructuredDataPayload.MoExchangeStructuredData.Contains("RECEIVED");
 		}
 
 		private static void HandleInvalidDocument()
 		{
-			throw new NotImplementedException();
+			// TODO: How do we / should we inform user of invalid document?
 		}
 
 		private static MoExchangeServiceReference.MoExchangeResponsePayloadType SendTheDocument(string doc)

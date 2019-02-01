@@ -5,21 +5,31 @@ namespace MoCourtDocumentUpload
 {
 	public class ProcessFile
 	{
-		private DocumentProcessor _documentWorkflow;
+		private readonly DocumentProcessor _documentWorkflow;
 		public ProcessFile(DocumentProcessor documentWorkflow)
 		{
 			_documentWorkflow = documentWorkflow;
 		}
-		public void processFile(CaseFile newFile)
+
+		public void Process(CaseFile newFile)
 		{
 			try
 			{
-				_documentWorkflow.Process(newFile.FullPath);
-				HandleSuccess(newFile);
+				var wasSuccess = _documentWorkflow.Process(newFile.FullPath);
+
+			    if (wasSuccess)
+			    {
+			        HandleSuccess(newFile);
+                }
+			    else
+			    {
+                    HandleError(newFile, new Exception("Reason why it failed."));
+			    }
+				
 			}
-			catch (Exception E)
+			catch (Exception e)
 			{
-				HandleError(newFile, E);
+				HandleError(newFile, e);
 			}		
 		}
         private static void HandleSuccess(CaseFile newFile)
@@ -27,7 +37,7 @@ namespace MoCourtDocumentUpload
 			newFile.MoveToProcessedFolder();
 			Logger.Info("Message Sent");
 		}
-		private void HandleError(CaseFile newFile, Exception e)
+		private static void HandleError(CaseFile newFile, Exception e)
 		{
 			newFile.MoveToErrorFolder();
 			Logger.Error(e);

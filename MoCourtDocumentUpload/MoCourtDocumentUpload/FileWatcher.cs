@@ -48,7 +48,7 @@ namespace MoCourtDocumentUpload
 		{
 			try
 			{
-				processFile.processFile(new CaseFile(e.FullPath, _fileDirectory));
+				processFile.Process(new CaseFile(e.FullPath, _fileDirectory));
 			}
 			catch (Exception ex)
 			{

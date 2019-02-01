@@ -24,14 +24,32 @@ C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoC
 C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csproj.CopyComplete
 C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.exe
 C:\Users\rschlueter\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.pdb
+C:\Users\Ryan and Sara's\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csprojAssemblyReference.cache
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\appinfo20.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\appinfo21.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\fbi.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\iso_3166.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\iso_4217.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\jxdm.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\MoEcfExchange.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\MoEcfExchangeExtensions.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\MoExchangeDocument.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\niem-core.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\structures.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\usps_states.xsd
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\xsds\xsd.xsd
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.exe.config
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.exe
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\MoCourtDocumentUpload.pdb
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\LinqToExcel.dll
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\log4net.dll
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\Remotion.Data.Linq.dll
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\Remotion.dll
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\Remotion.Interfaces.dll
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\LinqToExcel.xml
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\bin\Debug\log4net.xml
-C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csprojResolveAssemblyReference.cache
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csproj.CoreCompileInputs.cache
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csproj.CopyComplete
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.exe
 C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.pdb
-C:\Users\Ryan and Sara's\Source\Repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csprojAssemblyReference.cache
+C:\Users\Justin.Schubring\source\repos\MoCourtDocumentUpload\MoCourtDocumentUpload\MoCourtDocumentUpload\obj\Debug\MoCourtDocumentUpload.csprojResolveAssemblyReference.cache

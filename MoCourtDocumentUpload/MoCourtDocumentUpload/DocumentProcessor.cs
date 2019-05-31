@@ -4,7 +4,9 @@ using MoCourtDocumentUpload.Models;
 using MoCourtDocumentUpload.Repos;
 using MoCourtDocumentUpload.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using MoCourtDocumentUpload.Models.Mappers;
 
 namespace MoCourtDocumentUpload
 {
@@ -20,30 +22,32 @@ namespace MoCourtDocumentUpload
 		{
 		    var wasSuccessfullyUploaded = false;
 
-			GetFile(fileFullPath);
+			var file = GetFile(fileFullPath);
 
-			var doc = BuildTheDocument();
+		    foreach (var excelObject in file)
+		    {
+		        var doc = BuildTheDocument(excelObject);
 
-			var isValid = ValidateTheDocument(doc);
+		        var isValid = ValidateTheDocument(doc);
 
-			if (isValid)
-			{
-				var response = SendTheDocument(doc);
-				wasSuccessfullyUploaded = ProcessResponse(response);
-			}
-			else
-			{
-				HandleInvalidDocument();
-			}
+		        if (isValid)
+		        {
+		            var response = SendTheDocument(doc);
+		            wasSuccessfullyUploaded = ProcessResponse(response);
+		        }
+		        else
+		        {
+		            HandleInvalidDocument();
+		        }
+            }
 
 		    return wasSuccessfullyUploaded;
 		}
 
-		private static void GetFile(string fileName)
+		private List<ExcelObject> GetFile(string fileName)
 		{
 			var excel = new ExcelQueryFactory(fileName);
-			var indianaCompanies = from c in excel.Worksheet<ExcelObject>()
-								   select c;
+		    return excel.Worksheet<ExcelObject>().ToList();
 		}
 
 		private bool ProcessResponse(MoExchangeServiceReference.MoExchangeResponsePayloadType response)
@@ -67,16 +71,9 @@ namespace MoCourtDocumentUpload
 			var validator = new Validator();
 			return validator.ValidateDocument(doc);
 		}
-		private static string BuildTheDocument()
+		private static string BuildTheDocument(ExcelObject file)
 		{
-			return new BuildDocument().ReturnDocumentXML(new RootObject());
+            return new BuildDocument().ReturnDocumentXML(file.ToRootObject());
 		}
-	}
-	public class ExcelObject
-	{
-		[ExcelColumn("Test1")]
-		public string Test1 { get; set; }
-		[ExcelColumn("Test2")]
-		public string Test2 { get; set; }
 	}
 }

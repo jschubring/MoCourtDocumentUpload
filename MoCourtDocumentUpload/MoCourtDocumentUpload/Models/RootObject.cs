@@ -24,21 +24,22 @@ namespace MoCourtDocumentUpload.Models
             public string ID { get; set; }
         }
 
-        public class Person
+    public class Person
+    {
+        public string GetID()
         {
-            public string GetID()
-            {
-                return "p" + ID;
-            }
-            public string ID { get; set; }
-            public DateTime BirthDate { get; set; }
-            public string GivenName { get; set; }
-            public string MiddleName { get; set; }
-            public string SurName { get; set; }
-            public string SocialSecurityNumber { get; set; }
-            public SEXCodeSimpleType SexCodeSimpleType { get; set; }
-            public string Suffix { get; set; }
+            return "p" + ID;
         }
+        public string ID { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string GivenName { get; set; }
+        public string MiddleName { get; set; }
+        public string SurName { get; set; }
+        public string PartyType { get; set; }
+        public string SocialSecurityNumber { get; set; }
+        public SEXCodeSimpleType SexCodeSimpleType { get; set; }
+        public string Suffix { get; set; }
+    }
         public class Organization
         {
             public string GetID()
@@ -49,31 +50,39 @@ namespace MoCourtDocumentUpload.Models
             public string Name { get; set; }
             public string IdentificationID { get; set; }
         }
-        public class Document
-        {
-            public string ID { get; set; }
-            public string Format { get; set; }
-            public string Title { get; set; }
-            public string Category { get; set; }
-            public byte[] ByteArray { get; set; }
+    public class Document
+    {
+        public string ID { get; set; }
+        public string Format { get; set; }
+        public string Title { get; set; }
+        public string Category { get; set; }
+        public string Type { get; set; }
+        public string Location { get; set; }
+        public byte[] ByteArray { get; set; }
 
-            public string GetID()
-            {
-                return "pd" + ID;
-            }
+        public string GetID()
+        {
+            return "pd" + ID;
         }
+    }
         public class DocumentGroup
         {
             public List<Document> Documents { get; set; }
         }
 
-        public class CaseDetails
-        {
-            public string Division { get; set; }
-            public string Category { get; set; }
-            public string Title { get; set; }
-            public string ID { get; set; }
-        }
+    public class CaseDetails
+    {
+        public string CourtLocation { get; set; }
+        public string FilingFee { get; set; }
+        public string FilerRefrenceNumber { get; set; }
+
+        public string Division { get; set; }
+        public string Category { get; set; }
+        public string Title { get; set; }
+        public string Type { get; set; }
+        public string Style { get; set; }
+        public string ID { get; set; }
+    }
         public class RootObject
         {
             public List<DocumentGroup> DocumentGroups { get; set; }

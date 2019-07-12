@@ -93,23 +93,21 @@ namespace MoCourtDocumentUpload.Models
                 },
                 DocumentTitleText = BuildTextType(document.Title),
                 DocumentCategoryText = BuildTextType(document.Category),
-
+                
                 Document = new DocumentType[1]
                                    {
                            new DocumentType()
                            {
                                DocumentTitleText = BuildTextType(secondDoc.Title),
                                DocumentBinary = new BinaryType()
-                               {          Item = new base64Binary(){
-                     Value =   secondDoc.ByteArray }
-                    ,
+                               {          Item = new base64Binary(){  Value =   secondDoc.ByteArray },
                                    BinaryFormatID = BuildTextType(secondDoc.Format)
 
                                }
                            }
                                    }
             };
-        }     
+        }
         private static EntityDocumentAssociationType[] BuildEntityDocumentAssocation()
         {
             return new List<EntityDocumentAssociationType>(){
@@ -212,14 +210,14 @@ namespace MoCourtDocumentUpload.Models
                 {
                     CaseCourt = new CourtType()
                     {
-                        CourtDivisionText = BuildTextType(courtCase.Division),
+                        CourtDivisionText = BuildTextType(courtCase.CourtLocation),
                         //OrganizationName = BuildTextType("OrgName"),
                         //OrganizationOtherIdentification = BuildIdentificationTypes("")
                     },
                     //CaseOtherIdentification = BuildIdentificationType()
                 },
-                CaseCategoryText = BuildTextType(courtCase.Category),
-                CaseTitleText = BuildTextType(courtCase.Title),
+                CaseCategoryText = BuildTextType(courtCase.Type),
+                CaseTitleText = BuildTextType(courtCase.Style),
                 id = courtCase.ID
             };
         }
@@ -264,8 +262,12 @@ namespace MoCourtDocumentUpload.Models
                             StreetFullText = BuildTextType(x)
                         }).ToArray(),
                         LocationCityName = new ProperNameTextType() { Value = contact.City },
-                        LocationPostalCode = BuildTextType(contact.ZipCode),
-
+                        
+                        LocationStateUSPostalServiceCode = new USStateCodeType()
+                        {
+                            Value = USStateCodeSimpleType.MO,
+                            
+                        },
                         Item1 = new CountryAlpha2CodeType()
                         {
                             Value = contact.Country

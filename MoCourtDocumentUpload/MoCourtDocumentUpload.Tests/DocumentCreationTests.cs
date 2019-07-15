@@ -2,8 +2,6 @@
 using MoCourtDocumentUpload.Models;
 using MoCourtDocumentUpload.Repos;
 using Org.XmlUnit.Builder;
-using Org.XmlUnit.Input;
-using Org.XmlUnit.Validation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,21 +24,21 @@ namespace MoCourtDocumentUpload.Tests
 
             .CheckForSimilar()
 
-            .Build();          
+            .Build();
 
             Assert.IsFalse(myDiff.HasDifferences(), myDiff.ToString());
         }
-		[TestMethod]
-		public void ServiceIntegrationTest()
-		{
-			var test = CreateTestObject();
-			var xmlResult = new BuildDocument().ReturnDocumentXML(test);
-			var response = new MoEcfServiceRepo().SendRequest(xmlResult);
+        [TestMethod]
+        public void ServiceIntegrationTest()
+        {
+            var test = CreateTestObject();
+            var xmlResult = new BuildDocument().ReturnDocumentXML(test);
+            var response = new MoEcfServiceRepo().SendRequest(xmlResult);
 
-			Assert.IsTrue(response.MoExchangeStructuredDataPayload.MoExchangeStructuredData.Contains("RECEIVED"));
-		}
+            Assert.IsTrue(response.MoExchangeStructuredDataPayload.MoExchangeStructuredData.Contains("RECEIVED"));
+        }
 
-		private RootObject CreateTestObject()
+        private RootObject CreateTestObject()
         {
             return new RootObject()
             {
@@ -54,38 +52,8 @@ namespace MoCourtDocumentUpload.Tests
                         MiddleName = "PATRICK",
                         SexCodeSimpleType = SEXCodeSimpleType.M,
                         SocialSecurityNumber = "413-18-1829",
-                        SurName = "CORGAN"
-                    },
-                    new Person(){
-                        BirthDate = DateTime.Parse("1945-02-28").Date,
-                        GivenName = "JOHN",
-                        MiddleName = "CUNNINGHAM",
-                        SurName = "FLINN",
-                        Suffix = "III",
-                        ID = "2",
-                        SexCodeSimpleType = SEXCodeSimpleType.M,
-                        SocialSecurityNumber = "124-13-4899"
-
-                    }
-                },
-                Organizations = new List<Organization>()
-                {
-                new Organization()
-                {
-                    ID = "1",
-                    Name = "BAYERISCHE MOTOREN WERKE AG",
-                    IdentificationID = "22-2864789"
-                },
-                new Organization()
-                {
-                    ID = "2",
-                    Name = "DIRTY DEEDS DONE DIRT CHEAP INC",
-                    IdentificationID = "41-3895789"
-                }
-                },
-                Contacts = new List<Contact>()
-                {
-                    new Contact()
+                        SurName = "CORGAN",
+                        Contact =  new Contact()
                 {
                     Email = "joe@home.com",
                     StreetAdress = new List<string>(){
@@ -99,21 +67,42 @@ namespace MoCourtDocumentUpload.Tests
                     ExchangeID = "522",
                     LineID = "8867",
                     ID = "1"
-                }, new Contact()
+                }
+                    },
+                    new Person(){
+                        BirthDate = DateTime.Parse("1945-02-28").Date,
+                        GivenName = "JOHN",
+                        MiddleName = "CUNNINGHAM",
+                        SurName = "FLINN",
+                        Suffix = "III",
+                        ID = "2",
+                        SexCodeSimpleType = SEXCodeSimpleType.M,
+                        SocialSecurityNumber = "124-13-4899",
+                        Contact = new Contact()
                 {
                     StreetAdress = new List<string>(){
                             "44 DUGGAN AVE"
                         },
                     City = "TORONTO",
                     Country = CountryAlpha2CodeSimpleType.CA,
-                    State = "ONTARIO",
+                    InternationalState = "ONTARIO",
                     ZipCode = "M4V 1Y2",
                     AreaCode = "573",
                     ExchangeID = "522",
                     LineID = "1234",
                     ID = "2"
+
+                    }
+                    }
                 },
-                    new Contact()
+                Organizations = new List<Organization>()
+                {
+                new Organization()
+                {
+                    ID = "1",
+                    Name = "BAYERISCHE MOTOREN WERKE AG",
+                    IdentificationID = "22-2864789",
+                    Contact =  new Contact()
                 {
                     StreetAdress = new List<string>(){
                             "123 BUSINESS ST"
@@ -126,7 +115,14 @@ namespace MoCourtDocumentUpload.Tests
                     ExchangeID = "522",
                     LineID = "1235",
                     ID = "3"
-                },new Contact()
+                }
+                },
+                new Organization()
+                {
+                    ID = "2",
+                    Name = "DIRTY DEEDS DONE DIRT CHEAP INC",
+                    IdentificationID = "41-3895789",
+                    Contact = new Contact()
                 {
                     StreetAdress = new List<string>(){
                             "111 MAIN ST"
@@ -139,6 +135,7 @@ namespace MoCourtDocumentUpload.Tests
                     ExchangeID = "522",
                     LineID = "1236",
                     ID = "4"
+                }
                 }
                 },
                 CommentText = "Note to Clerk - Enter notes for the court clerk to view concerning the filing. Notes are sent electronically to the court but are not attached to or visible to the public. Notes to Clerk are limited to 1,000 characters.",
@@ -207,7 +204,7 @@ namespace MoCourtDocumentUpload.Tests
                         Category = IdentificationCategoryCodeSimpleType.USERNAME,
                         ID = "ecfUser001"
                     }
-                }               
+                }
             };
         }
     }

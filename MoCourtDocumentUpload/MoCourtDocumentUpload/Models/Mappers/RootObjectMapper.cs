@@ -35,8 +35,17 @@ namespace MoCourtDocumentUpload.Models.Mappers
                     }
                 },
                 Case = new CaseDetails(),
-                Identifications = new List<Identification>(),
-                CaseFee = new Fee(),
+                Identifications = new List<Identification>() {
+                    new Identification()
+                    {
+                        Category = IdentificationCategoryCodeSimpleType.ATTYREFNO,
+                        ID = excelObject.FilerReferenceNumber,
+                    }
+                },
+                CaseFee = new Fee()
+                {
+                    Amount = excelObject.FilingFee
+                },
                 CommentText = ""
             };
         }

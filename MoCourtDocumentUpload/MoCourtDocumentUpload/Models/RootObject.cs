@@ -4,25 +4,25 @@ using System.Collections.Generic;
 namespace MoCourtDocumentUpload.Models
 {
 
-        public class Contact
+    public class Contact
+    {
+        public string GetID()
         {
-            public string GetID()
-            {
-                return "ci" + ID;
-            }
-            public string Email { get; set; }
-            public List<string> StreetAdress { get; set; }
-            public string City { get; set; }
-            public string State { get; set; }
-            public USStateCodeSimpleType? UsState { get; set; }
-            public CountryAlpha2CodeSimpleType Country { get; set; }
-            public string ZipCode { get; set; }
-
-            public string AreaCode { get; set; }
-            public string ExchangeID { get; set; }
-            public string LineID { get; set; }
-            public string ID { get; set; }
+            return "ci" + ID;
         }
+        public string Email { get; set; }
+        public List<string> StreetAdress { get; set; }
+        public string City { get; set; }
+        public string InternationalState { get; set; }
+        public USStateCodeSimpleType? UsState { get; set; }
+        public CountryAlpha2CodeSimpleType Country { get; set; }
+        public string ZipCode { get; set; }
+
+        public string AreaCode { get; set; }
+        public string ExchangeID { get; set; }
+        public string LineID { get; set; }
+        public string ID { get; set; }
+    }
 
     public class Person
     {
@@ -39,17 +39,20 @@ namespace MoCourtDocumentUpload.Models
         public string SocialSecurityNumber { get; set; }
         public SEXCodeSimpleType SexCodeSimpleType { get; set; }
         public string Suffix { get; set; }
+        public Contact Contact { get; set; }
     }
-        public class Organization
+    public class Organization
+    {
+        public string GetID()
         {
-            public string GetID()
-            {
-                return "o" + ID;
-            }
-            public string ID { get; set; }
-            public string Name { get; set; }
-            public string IdentificationID { get; set; }
+            return "o" + ID;
         }
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public string IdentificationID { get; set; }
+        public Contact Contact { get; set; }
+        public string PartyType { get; internal set; }
+    }
     public class Document
     {
         public string ID { get; set; }
@@ -65,13 +68,17 @@ namespace MoCourtDocumentUpload.Models
             return "pd" + ID;
         }
     }
-        public class DocumentGroup
-        {
-            public List<Document> Documents { get; set; }
-        }
+    public class DocumentGroup
+    {
+        public List<Document> Documents { get; set; }
+    }
 
     public class CaseDetails
     {
+        public string GetID()
+        {
+            return ID;
+        }
         public string CourtLocation { get; set; }
         public string FilingFee { get; set; }
         public string FilerRefrenceNumber { get; set; }
@@ -83,26 +90,26 @@ namespace MoCourtDocumentUpload.Models
         public string Style { get; set; }
         public string ID { get; set; }
     }
-        public class RootObject
-        {
-            public List<DocumentGroup> DocumentGroups { get; set; }
-            public List<Organization> Organizations { get; set; }
-            public List<Person> People { get; set; }
-            public List<Contact> Contacts { get; set; }
-            public string CommentText { get; set; }
-            public CaseDetails Case { get; set; }
-            public List<Identification> Identifications { get; set; }
-            public Fee CaseFee { get; set; }
-        }
-        public class Fee
-        {
-            public string Amount { get; set; }
-            public string RoutingNumber { get; set; }
-            public string AccountNumber { get; set; }
-        }
-        public class Identification
-        {
-            public string ID { get; set; }
-            public IdentificationCategoryCodeSimpleType Category { get; set; }
-        }    
+    public class RootObject
+    {
+        public List<DocumentGroup> DocumentGroups { get; set; }
+        public List<Organization> Organizations { get; set; }
+        public List<Person> People { get; set; }
+        public List<Contact> Contacts { get; set; }
+        public string CommentText { get; set; }
+        public CaseDetails Case { get; set; }
+        public List<Identification> Identifications { get; set; }
+        public Fee CaseFee { get; set; }
+    }
+    public class Fee
+    {
+        public string Amount { get; set; }
+        public string RoutingNumber { get; set; }
+        public string AccountNumber { get; set; }
+    }
+    public class Identification
+    {
+        public string ID { get; set; }
+        public IdentificationCategoryCodeSimpleType Category { get; set; }
+    }
 }

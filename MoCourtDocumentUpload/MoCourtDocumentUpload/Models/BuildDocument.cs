@@ -1,5 +1,4 @@
 ﻿using MoCourtDocumentUpload.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -41,28 +40,35 @@ namespace MoCourtDocumentUpload.Models
             {
                 Person = BuildPersons(root.People),
                 Organization = BuildOrganizations(root.Organizations),
-                ContactInformation = BuildContactInformations(root.Contacts),
-                Case = BuildCase(root.Case),
-                CommentText = BuildTextType(root.CommentText),
+                ContactInformation = BuildContactInformations(root),
+
+                Case = BuildCase(root.Case),                
                 Fee = BuildFee(root.CaseFee),
                 Identification = BuildIdentification(root.Identifications),
                 PrimaryDocument = BuildPrimaryDoc(root.DocumentGroups),
-                PersonContactInformationAssociation = BuildContactInformationAssociations(),
-                EntityCaseAssociation = new List<EntityCaseAssociationType>()
-                {
-                    BuildEntityCaseAssociationType("c", "o1", null, "PET"),
-                     BuildEntityCaseAssociationType("c",null, "p1", "PET"),
-                      BuildEntityCaseAssociationType("c", "o2",null, "RES"),
-                       BuildEntityCaseAssociationType("c",null, "p2", "RES")
-                }.ToArray(),
+
                 EntityDocumentAssociation = BuildEntityDocumentAssocation(),
-                OrganizationContactInformationAssociation = new List<OrganizationContactInformationAssociationType>()
-                {
-                    BuildOrganizationContactInformationAssociation("o1", "ci3"),
-                    BuildOrganizationContactInformationAssociation("o2", "ci4")
-                }.ToArray()
+                PersonContactInformationAssociation = BuildContactInformationAssociations(root.People),
+                OrganizationContactInformationAssociation = BuildOrganizationContact(root.Organizations),
+                EntityCaseAssociation = BuildEntityCaseAssociation(root.Case.GetID(), root.Organizations, root.People),
+
+                CommentText = BuildTextType(root.CommentText),
+
             };
             return mo;
+        }
+
+        private static EntityCaseAssociationType[] BuildEntityCaseAssociation(string caseID, List<Organization> orgs, List<Person> people)
+        {
+            var associations = new List<EntityCaseAssociationType>();
+            associations.AddRange(orgs.Select(x => BuildEntityCaseAssociationType(caseID, x.GetID(), null, x.PartyType)));
+            associations.AddRange(people.Select(x => BuildEntityCaseAssociationType(caseID, null, x.GetID(), x.PartyType)));
+            return associations.ToArray();
+        }
+
+        private static OrganizationContactInformationAssociationType[] BuildOrganizationContact(List<Organization> organizations)
+        {
+            return organizations.Select(x => BuildOrganizationContactInformationAssociation(x.GetID(), x.Contact.GetID())).ToArray();
         }
 
         private static IdentificationType[] BuildIdentification(List<Identification> identifications)
@@ -93,7 +99,7 @@ namespace MoCourtDocumentUpload.Models
                 },
                 DocumentTitleText = BuildTextType(document.Title),
                 DocumentCategoryText = BuildTextType(document.Category),
-                
+
                 Document = new DocumentType[1]
                                    {
                            new DocumentType()
@@ -214,11 +220,10 @@ namespace MoCourtDocumentUpload.Models
                         //OrganizationName = BuildTextType("OrgName"),
                         //OrganizationOtherIdentification = BuildIdentificationTypes("")
                     },
-                    //CaseOtherIdentification = BuildIdentificationType()
                 },
                 CaseCategoryText = BuildTextType(courtCase.Type),
                 CaseTitleText = BuildTextType(courtCase.Style),
-                id = courtCase.ID
+                id = courtCase.GetID(),
             };
         }
 
@@ -227,13 +232,9 @@ namespace MoCourtDocumentUpload.Models
             return new TextType() { Value = value };
         }
 
-        private static PersonContactInformationAssociationType[] BuildContactInformationAssociations()
+        private static PersonContactInformationAssociationType[] BuildContactInformationAssociations(List<Person> people)
         {
-            return new List<PersonContactInformationAssociationType>
-                {
-                    BuildContactInformationAssociation("p1", "ci1"),
-                    BuildContactInformationAssociation("p2", "ci2")
-                }.ToArray();
+            return people.Select(x => BuildContactInformationAssociation(x.GetID(), x.Contact.GetID())).ToArray();        
         }
         private static PersonContactInformationAssociationType BuildContactInformationAssociation(string personRef, string contactRef)
         {
@@ -243,8 +244,12 @@ namespace MoCourtDocumentUpload.Models
                 PersonReference = BuildReference(personRef)
             };
         }
-        private static ContactInformationType[] BuildContactInformations(List<Contact> contacts)
+        private static ContactInformationType[] BuildContactInformations(RootObject rootObject)
         {
+            var contacts = new List<Contact>();
+            contacts.AddRange(rootObject.People.Select(x => x.Contact));
+            contacts.AddRange(rootObject.Organizations.Select(x => x.Contact));
+
             return contacts.Select(x => BuildContactInformation(x)).ToArray();
         }
 
@@ -252,7 +257,7 @@ namespace MoCourtDocumentUpload.Models
         {
             var contactInfo = new ContactInformationType()
             {
-                id = contact.GetID(),
+                id = contact.GetID(),             
                 ContactMailingAddress = new AddressType()
                 {
                     Item = new StructuredAddressType()
@@ -261,20 +266,14 @@ namespace MoCourtDocumentUpload.Models
                         {
                             StreetFullText = BuildTextType(x)
                         }).ToArray(),
-                        LocationCityName = new ProperNameTextType() { Value = contact.City },
-                        
-                        LocationStateUSPostalServiceCode = new USStateCodeType()
-                        {
-                            Value = USStateCodeSimpleType.MO,
-                            
-                        },
+                        LocationCityName = new ProperNameTextType() { Value = contact.City },                   
                         Item1 = new CountryAlpha2CodeType()
                         {
                             Value = contact.Country
                         },
-
+                        LocationPostalCode = BuildTextType(contact.ZipCode)
                     }
-                },
+                },               
                 ContactTelephoneNumber = new TelephoneNumberType()
                 {
                     Item = new NANPTelephoneNumberType()
@@ -285,21 +284,22 @@ namespace MoCourtDocumentUpload.Models
                     }
                 }
             };
+
             if (!string.IsNullOrEmpty(contact.Email))
             {
                 contactInfo.ContactEmailID = BuildTextType(contact.Email);
             }
-            if (!string.IsNullOrEmpty(contact.State))
-            {
-                contactInfo.ContactMailingAddress.Item.LocationStateName = new ProperNameTextType() { Value = contact.State };
-            }
+
             if (contact.UsState != null)
             {
                 contactInfo.ContactMailingAddress.Item.LocationStateUSPostalServiceCode = new USStateCodeType()
                 {
                     Value = contact.UsState.Value
                 };
-
+            }
+            else if (!string.IsNullOrEmpty(contact.InternationalState))
+            {
+                contactInfo.ContactMailingAddress.Item.LocationStateName = new ProperNameTextType() { Value = contact.InternationalState };
             }
 
             return contactInfo;
@@ -373,7 +373,6 @@ namespace MoCourtDocumentUpload.Models
                     IdentificationID = BuildTextType(person.SocialSecurityNumber)
                 },
                 PersonOtherIdentification = null,
-                //PersonOtherIdentification = BuildIdentificationType(),
                 Item = new SEXCodeType
                 {
                     Value = SEXCodeSimpleType.M
@@ -396,9 +395,5 @@ namespace MoCourtDocumentUpload.Models
                 IdentificationCategory = identification.Category
             };
         }
-
     }
-
-   
-
 }

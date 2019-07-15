@@ -53,6 +53,7 @@ namespace MoCourtDocumentUpload.Tests
                         SexCodeSimpleType = SEXCodeSimpleType.M,
                         SocialSecurityNumber = "413-18-1829",
                         SurName = "CORGAN",
+                        PartyType = "PET",
                         Contact =  new Contact()
                 {
                     Email = "joe@home.com",
@@ -78,6 +79,7 @@ namespace MoCourtDocumentUpload.Tests
                         ID = "2",
                         SexCodeSimpleType = SEXCodeSimpleType.M,
                         SocialSecurityNumber = "124-13-4899",
+                        PartyType = "RES",
                         Contact = new Contact()
                 {
                     StreetAdress = new List<string>(){
@@ -102,6 +104,7 @@ namespace MoCourtDocumentUpload.Tests
                     ID = "1",
                     Name = "BAYERISCHE MOTOREN WERKE AG",
                     IdentificationID = "22-2864789",
+                     PartyType = "PET",
                     Contact =  new Contact()
                 {
                     StreetAdress = new List<string>(){
@@ -122,6 +125,7 @@ namespace MoCourtDocumentUpload.Tests
                     ID = "2",
                     Name = "DIRTY DEEDS DONE DIRT CHEAP INC",
                     IdentificationID = "41-3895789",
+                           PartyType = "RES",
                     Contact = new Contact()
                 {
                     StreetAdress = new List<string>(){
@@ -141,9 +145,9 @@ namespace MoCourtDocumentUpload.Tests
                 CommentText = "Note to Clerk - Enter notes for the court clerk to view concerning the filing. Notes are sent electronically to the court but are not attached to or visible to the public. Notes to Clerk are limited to 1,000 characters.",
                 Case = new CaseDetails()
                 {
-                    Category = "CP",
-                    Division = "AD",
-                    Title = "JOHN C FLINN ET AL V WILLIAM P CORGAN ET AL",
+                    Type = "CP",
+                    CourtLocation = "AD",
+                    Style = "JOHN C FLINN ET AL V WILLIAM P CORGAN ET AL",
                     ID = "c"
                 },
                 CaseFee = new Fee()

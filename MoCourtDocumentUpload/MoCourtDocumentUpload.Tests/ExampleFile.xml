@@ -165,13 +165,13 @@
   </mo-ecf-ext:EntityCaseAssociation>
   <mo-ecf-ext:EntityCaseAssociation>
     <nc:CaseReference s:ref="c" />
-    <mo-ecf:EntityPersonReference s:ref="p1" />
-    <mo-ecf-ext:AssociationDescriptionText>PET</mo-ecf-ext:AssociationDescriptionText>
+    <mo-ecf:EntityOrganizationReference s:ref="o2" />
+    <mo-ecf-ext:AssociationDescriptionText>RES</mo-ecf-ext:AssociationDescriptionText>
   </mo-ecf-ext:EntityCaseAssociation>
   <mo-ecf-ext:EntityCaseAssociation>
     <nc:CaseReference s:ref="c" />
-    <mo-ecf:EntityOrganizationReference s:ref="o2" />
-    <mo-ecf-ext:AssociationDescriptionText>RES</mo-ecf-ext:AssociationDescriptionText>
+    <mo-ecf:EntityPersonReference s:ref="p1" />
+    <mo-ecf-ext:AssociationDescriptionText>PET</mo-ecf-ext:AssociationDescriptionText>
   </mo-ecf-ext:EntityCaseAssociation>
   <mo-ecf-ext:EntityCaseAssociation>
     <nc:CaseReference s:ref="c" />

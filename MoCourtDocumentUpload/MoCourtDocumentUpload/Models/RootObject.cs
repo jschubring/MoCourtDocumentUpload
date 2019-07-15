@@ -51,7 +51,7 @@ namespace MoCourtDocumentUpload.Models
         public string Name { get; set; }
         public string IdentificationID { get; set; }
         public Contact Contact { get; set; }
-        public string PartyType { get; internal set; }
+        public string PartyType { get; set; }
     }
     public class Document
     {
@@ -79,13 +79,7 @@ namespace MoCourtDocumentUpload.Models
         {
             return ID;
         }
-        public string CourtLocation { get; set; }
-        public string FilingFee { get; set; }
-        public string FilerRefrenceNumber { get; set; }
-
-        public string Division { get; set; }
-        public string Category { get; set; }
-        public string Title { get; set; }
+        public string CourtLocation { get; set; }     
         public string Type { get; set; }
         public string Style { get; set; }
         public string ID { get; set; }
